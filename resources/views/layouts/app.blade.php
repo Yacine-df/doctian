@@ -31,6 +31,7 @@
             <main>
                 {{ $slot }}
             </main>
+            <x-flash></x-flash>
         </div>
     </body>
 </html>

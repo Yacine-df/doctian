@@ -1021,8 +1021,6 @@
     "We're lost in space. The page you were trying to view does not exist.": "لقد ضعنا في الفضاء. الصفحة التي كنت تحاول عرضها غير موجودة.",
     "Welcome Back!": "مرحبا بعودتك!",
     "Welcome to your new subscription.": "مرحبًا بك في اشتراكك الجديد.",
-    "West Virginia": "فرجينيا الغربية",
-    "Western Sahara": "الصحراء الغربية",
     "When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.": "عند تمكين المصادقة الثنائية، ستتم مطالبتك برمز آمن وعشوائي أثناء المصادقة. يمكنك الحصول على هذا الرمز من تطبيق Google Authenticator بهاتفك.",
     "Whoops": "عذراً",
     "Whoops!": "عذراً!",
@@ -1100,5 +1098,6 @@
     "Zimbabwe": "زيمبابوي",
     "ZIP / Postal Code": "الرمز البريدي",
     "Zip / Postal Code": "الرمز البريدي",
-    "Åland Islands": "جزر آلاند"
+    "Åland Islands": "جزر آلاند",
+    "GoodBye" :" الى اللقاء" 
 }
