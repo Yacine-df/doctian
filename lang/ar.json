@@ -1099,5 +1099,8 @@
     "ZIP / Postal Code": "الرمز البريدي",
     "Zip / Postal Code": "الرمز البريدي",
     "Åland Islands": "جزر آلاند",
-    "GoodBye" :" الى اللقاء" 
+    "GoodBye" :" الى اللقاء" ,
+    "Select User Type":"اختيار نوع المستخدم",
+    "famillyName" : "اسم العائلة" 
+
 }

@@ -15,16 +15,35 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div class="w-52">
-                <a href="/">
-                    <x-application-logo class="h-20 fill-current text-gray-500" />
-                </a>
+        <!-- Navigation -->
+        <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 fixed w-full">
+            <!-- Primary Navigation Menu -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <!-- Logo -->
+                        <div class="shrink-0 flex items-center">
+                            <a class="w-28" href="{{ route('dashboard') }}">
+                                <x-application-logo class="block h-9 text-gray-800 " />
+                            </a>
+                        </div>
+                    </div>
+                    {{-- languages switch --}}
+                    <x-languages></x-languages>
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                            {{ __('Login') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                            {{ __('Register') }}
+                        </x-nav-link>
+                    </div>
+                </div>
             </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        </nav>
+        <div class="min-h-screen grid place-items-center bg-gray-100">
                 {{ $slot }}
-            </div>
         </div>
     </body>
 </html>

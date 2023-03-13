@@ -514,7 +514,7 @@
     "Multiple Months": "Plusieurs mois",
     "Myanmar": "Myanmar",
     "N/A": "n.c.",
-    "Name": "Nom",
+    "Name": "Prénom",
     "Namibia": "Namibie",
     "Nauru": "Nauru",
     "Nebraska": "Nebraska",
@@ -1101,5 +1101,8 @@
     "ZIP / Postal Code": "Code postal",
     "Zip / Postal Code": "Code postal",
     "Åland Islands": "Les îles d'Åland",
-    "GoodBye": "Au revoir"
+    "GoodBye": "Au revoir",
+    "Select User Type":"Choisir type d'utilisateur",
+    "famillyName" : "Nom" 
+
 }
