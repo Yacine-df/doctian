@@ -17,7 +17,7 @@ class PatientFactory extends Factory
     public function definition()
     {
         return [
-            'phone'=>$this->faker->phoneNumber()
+            "insurance_number" => $this->faker->randomNumber(9)
         ];
     }
 }

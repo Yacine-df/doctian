@@ -1,0 +1,35 @@
+@php
+    $wilayas = array();
+    if (is_array($wilayas)) {
+            foreach (config('algerien_cities') as $key => $values) {
+            $wilayas[$values['wilaya_code']] = $values['wilaya_name_ascii'];
+        }
+    }
+    $wilayas = array_unique($wilayas);
+@endphp
+<form class="flex flex-col md:flex-row items-center justify-center">
+    <!-- Email Address -->
+    <x-text-input id="doctor" class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75"
+    type="text"
+    name="doctor"
+    :value="old('doctor')"
+    placeholder="{{__('Doctor')}}"
+    required autofocus />
+    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+    <select class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
+            <option value="">{{__('Choose Speciality')}}</option> 
+        @foreach (config('medical_specialities') as $key => $speciality)
+             <option value="{{$speciality}}">{{$speciality}}</option>
+         @endforeach
+    </select>
+
+    <select class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
+         @foreach ($wilayas as $key => $wilaya)
+             <option value="{{$wilaya}}">{{$wilaya}}</option>
+         @endforeach
+    </select>
+     <button class="rounded-full bg-blue-500 text-white my-1 md:my-0 px-12 w-64 py-2 mx-2 shadow-lg shadow-blue-500/50">
+         {{__('Search')}}
+     </button>
+</form> 

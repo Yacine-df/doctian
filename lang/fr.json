@@ -1103,6 +1103,13 @@
     "Åland Islands": "Les îles d'Åland",
     "GoodBye": "Au revoir",
     "Select User Type":"Choisir type d'utilisateur",
-    "famillyName" : "Nom" 
+    "famillyName" : "Nom",
+    "insurance number" : "Numéro d'assurance",
+    "speciality":"spécialité",
+    "You can add google map link for your location":"Vous pouver ajoutez le lien de google map pour votre position",
+    "Choose Speciality":"Choisir la specialité",
+    "Doctor" : "Médcin",
+    "Appointments":"Rendez-vous",
+    "Activity History" : "Historique des activités"
 
 }

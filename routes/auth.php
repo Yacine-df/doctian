@@ -7,20 +7,40 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\PatientController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('register/patient', function(){
-        return view('auth.Oldregister');
-    })->name('patient.register');
+    // registration for different user type
 
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    Route::get('register', function(){
+        return view('auth.register');
+    })->name('register');
+    // patient
+    Route::get('register/patient', [PatientController::class, 'create'])
+    ->name('patient.register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('/patients', [PatientController::class, 'store'])
+    ->name('patient.store');
+
+    Route::get('patient/appointment', [PatientController::class, 'create'])
+    ->name('patient.register');
+
+
+    Route::get('register/doctor', function(){
+        return view('auth.register.doctor');
+                })->name('doctor.register');
+
+    Route::get('register/pharmacy', function(){
+        return view('auth.register.pharmacist');
+                })->name('pharmacy.register');
+
+    Route::get('register/laboratory', function(){
+        return view('auth.register.laboratory');
+                })->name('laboratory.register');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

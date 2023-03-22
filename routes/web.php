@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controllers\LanguagesController@switchLang']);
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('auth.dashboard.patientDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

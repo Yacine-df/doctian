@@ -15,6 +15,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'doc-tian' : '#CF2279'
+            }
+
         },
     },
 

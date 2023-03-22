@@ -1101,6 +1101,14 @@
     "Åland Islands": "جزر آلاند",
     "GoodBye" :" الى اللقاء" ,
     "Select User Type":"اختيار نوع المستخدم",
-    "famillyName" : "اسم العائلة" 
+    "famillyName" : "اسم العائلة",
+    "insurance number" :" رقم الضمان الاجتماعي",
+    "commune" :" البلدية",
+    "speciality": "التخصص",
+    "You can add google map link for your location": "يمكنك اضافة رابط غوغل لموقعك",
+    "Choose Speciality":"اختر التخصص",
+    "Doctor" : "الطبيب",
+    "Activity History" : "سجل النشاط"
+    
 
 }

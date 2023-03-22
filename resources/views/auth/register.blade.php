@@ -7,9 +7,9 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             
             <x-user-type userType="Patient" userUrl="{{route('patient.register')}}"></x-user-type>
-            <x-user-type userType="Doctor" userUrl="#"></x-user-type>
-            <x-user-type userType="Pharmacist" userUrl="#"></x-user-type>
-            <x-user-type userType="Laboratory" userUrl="#"></x-user-type>
+            <x-user-type userType="Doctor" userUrl="{{route('doctor.register')}}"></x-user-type>
+            <x-user-type userType="Pharmacist" userUrl="{{route('pharmacy.register')}}"></x-user-type>
+            <x-user-type userType="Laboratory" userUrl="{{route('laboratory.register')}}"></x-user-type>
         </div>
     </div>
 </x-guest-layout>
