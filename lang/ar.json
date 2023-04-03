@@ -755,7 +755,7 @@
     "Show All Fields": "عرض جميع الحقول",
     "Show Content": "عرض المحتوى",
     "Show Recovery Codes": "إظهار رموز الاسترداد",
-    "Showing": "عرض",
+    "Show": "عرض",
     "Sierra Leone": "سيراليون",
     "Signed in as": "تم الدخول كـ",
     "Since you already have an account, you may accept the invitation from your account settings screen.": "نظرًا لأن لديك حساب بالفعل، يمكنك قبول الدعوة من شاشة إعدادات حسابك.",
@@ -1108,7 +1108,19 @@
     "You can add google map link for your location": "يمكنك اضافة رابط غوغل لموقعك",
     "Choose Speciality":"اختر التخصص",
     "Doctor" : "الطبيب",
-    "Activity History" : "سجل النشاط"
+    "Activity History" : "سجل النشاط",
+    "Medical Record": "الملف الطبي",
+    "Pharmacy" : "الصيدلبة",
+    "Gender" : "الجنس",
+    "Birthday" :"تاريخ الميلاد",
+    "Files" : "ملفات",
+    "Notes" : "ملاحظات",
+    "Documents" : "وثائق",
+    "Medical history" : "الاحداث الطبية",
+    "height" : "الطول",
+    "weight" : "الوزن",
+    "Appointments" : "المواعيد"
+    
     
 
 }

@@ -1,8 +1,5 @@
 <x-dashboard>
     <x-slot:content>
-        <div class="bg-white p-6 rounded shadow">
-            <x-doctor-search></x-doctor-search>
-        </div>
         <section class="mt-6">
             <div class="grid md:grid-cols-2 md:gap-2">
                 <div class="bg-white p-4 rounded shadow  m-1 md:m-0 relative">

@@ -29,7 +29,7 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <a class="w-28" href="{{ route('dashboard') }}">
+                                <a class="w-28" href="/">
                                     <x-application-logo class="block h-9 text-gray-800 " />
                                 </a>
                             </div>
@@ -93,16 +93,21 @@
                     </div>
                 </div>
                 <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                            {{ __('Login') }}
-                        </x-responsive-nav-link>
-                    </div>
-                    <div class="pt-2 pb-3 space-y-1">
-                        <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                            {{ __('Register') }}
-                        </x-responsive-nav-link>
-                    </div>
+                    @guest
+                        <div class="pt-2 pb-3 space-y-1">
+                            <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                                {{ __('Login') }}
+                            </x-responsive-nav-link>
+                        </div>
+                        <div class="pt-2 pb-3 space-y-1">
+                            <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                                {{ __('Register') }}
+                            </x-responsive-nav-link>
+                        </div>
+                    @endguest
+                    @auth
+                        
+                    @endauth
                 </div>
             </nav>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid place-items-center" style="min-height: calc(100vh - 4rem);">

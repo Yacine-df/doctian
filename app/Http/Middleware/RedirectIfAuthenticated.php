@@ -23,7 +23,17 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                switch (auth()->user()->userable_type) {
+                    case "App\Models\Patient":
+                        return redirect()->intended(RouteServiceProvider::PHOME);
+                        break;
+                    case "App\Models\Doctor":
+                        return redirect()->intended(RouteServiceProvider::DHOME);
+                        break;
+                    default:
+                        dd('doctor');
+                        break;
+                }
             }
         }
 

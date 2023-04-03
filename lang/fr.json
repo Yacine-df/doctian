@@ -1110,6 +1110,15 @@
     "Choose Speciality":"Choisir la specialité",
     "Doctor" : "Médcin",
     "Appointments":"Rendez-vous",
-    "Activity History" : "Historique des activités"
-
+    "Activity History" : "Historique des activités",
+    "Medical Record": "Dossier Medical",
+    "Pharmacy" : "Pharmacie",
+    "Gender" : "Sexe",
+    "Birthday" :"Date de naissance",
+    "Files" : "fichiers",
+    "Notes" : "Notes",
+    "Documents" : "Documents",
+    "Medical history" : "Historique medicale",
+    "height" : "Taille",
+    "weight" : "Poids"
 }
