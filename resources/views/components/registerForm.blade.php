@@ -1,8 +1,9 @@
+@props(['action'])
 <x-guest-layout>
     <div class="sm:max-w-md w-full sm:mt-10 md:mt-8 mx-auto px-6 py-4 bg-white shadow-md  sm:rounded-lg">
         <!-- Form Steps / Progress Bar -->
         <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-            <x-user-normal-infos></x-user-normal-infos>
+            <x-user-normal-infos action={{$action}} ></x-user-normal-infos>
             <!-- Step 2 Content, default hidden on page load. -->
             <section id="step-2" class="form-step d-none">
                 <!-- Step 2 input fields -->

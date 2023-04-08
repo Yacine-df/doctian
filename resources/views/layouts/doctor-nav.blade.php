@@ -3,8 +3,11 @@
         <x-nav-link :href="route('doctorDashboard')" :active="request()->routeIs('doctorDashboard')">
             {{ __('Dashboard') }}
         </x-nav-link>
+        <x-nav-link :href="route('patients.index')" :active="request()->routeIs('patients.index')">
+            {{ __('Patients') }}
+        </x-nav-link>
         <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.index')">
-            {{ __('') }}
+            {{ __('Appointments') }}
         </x-nav-link>
         </x-slot>
         <x-slot:settingsDropDown>
@@ -48,6 +51,9 @@
                 <div class="pt-2 pb-3 space-y-1">
                     <x-responsive-nav-link :href="route('doctorDashboard')" :active="request()->routeIs('doctorDashboard')">
                         {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('patients.index')" :active="request()->routeIs('patients.index')">
+                        {{ __('Patients') }}
                     </x-responsive-nav-link>
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">

@@ -1119,7 +1119,12 @@
     "Medical history" : "الاحداث الطبية",
     "height" : "الطول",
     "weight" : "الوزن",
-    "Appointments" : "المواعيد"
+    "Appointments" : "المواعيد",
+    "Patients" : "المرضى",
+    "Income" : "الدخل",
+    "Online Sessions" : "جلسات عن بعد",
+    "Requests" : "طلبات",
+    "See All" : ""
     
     
 

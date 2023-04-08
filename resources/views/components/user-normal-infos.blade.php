@@ -1,3 +1,4 @@
+@props(['action'])
 <!-- Step 1 -->
 <li class="form-stepper-active text-center form-stepper-list" step="1">
     <a class="mx-2">
@@ -17,7 +18,7 @@
 </li>
 </ul>
 <!-- Step Wise Form Content -->
-<form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="/patients" class="bg-white">
+<form enctype="multipart/form-data" method="POST" action="{{$action}}" class="bg-white">
     @csrf
     <!-- Step 1 Content -->
     <section id="step-1" class="form-step">

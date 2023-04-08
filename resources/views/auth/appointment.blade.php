@@ -57,8 +57,6 @@
                             <tr>
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div class="inline-flex items-center gap-x-3">
-                                       
-
                                         <span>#3066</span>
                                     </div>
                                 </td>
@@ -128,7 +126,7 @@
                                             {{__('Show')}}
                                         </button>
 
-                                        <button x-on:click="delete = ! delete" class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button class="text-red-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             {{__('Delete')}}
                                         </button>
                                     </div>

@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('default');
 //switch languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controllers\LanguagesController@switchLang']);
 //Patient
@@ -29,8 +27,23 @@ Route::get('/p/dashboard', function () {
 Route::get('/d/dashboard', function () {
     return view('auth.dashboard.doctorDashboard');
 })->middleware(['auth', 'verified','doctor'])->name('doctorDashboard');
-
-
+//doctor
+Route::get('/d/dashboard/patients', function () {
+    return view('auth.patients');
+})->middleware(['auth', 'verified','doctor'])->name('patients.index');
+//doctor
+Route::get('/d/dashboard/patients/a', function () {
+    dd('test');
+    return view('auth.patients.index');
+})->middleware(['auth', 'verified','doctor']);
+//doctor
+Route::get('/doctors', function () {
+    return view('doctors.index');
+});
+//doctor
+Route::get('/doctors/1', function () {
+    return view('doctors.show');
+});
 Route::middleware('auth')->group(function(){
         //appointment
         Route::resource('appointments', AppointmentController::class);

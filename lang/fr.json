@@ -1120,5 +1120,9 @@
     "Documents" : "Documents",
     "Medical history" : "Historique medicale",
     "height" : "Taille",
-    "weight" : "Poids"
+    "weight" : "Poids",
+    "Income" : "Revenus",
+    "Online Sessions" : "Session Online",
+    "Requests" : "Demande de",
+    "See All" : "Voir tous"
 }

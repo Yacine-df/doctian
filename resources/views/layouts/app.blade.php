@@ -31,8 +31,6 @@
                 @cannot('doctor')
                     <x-doctor-search></x-doctor-search>
                 @endcannot
-
-
             </div>
             <!-- Page Content -->
             <main>

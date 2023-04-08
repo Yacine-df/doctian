@@ -1,4 +1,4 @@
-<x-registerForm>
+<x-registerForm  action="{{route('patient.store')}}">
     <!-- insurance number -->
     <div class="mt-1">
         <x-input-label for="insurance number" :value="__('insurance number')" />

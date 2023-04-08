@@ -1,4 +1,4 @@
-<x-registerForm>
+<x-registerForm action="{{route('doctor.register')}}">
     <!-- address -->
     <div class="mt-1">
         <x-input-label for="address" :value="__('Address')" />
