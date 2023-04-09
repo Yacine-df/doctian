@@ -7,24 +7,24 @@
     }
     $wilayas = array_unique($wilayas);
 @endphp
-<form class="flex flex-col md:flex-row items-center justify-center">
+<form class="flex flex-col md:flex-row items-center justify-center" method="GET" action="/doctors">
     <!-- doctor name -->
     <x-text-input id="doctor" class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75"
     type="text"
     name="doctor"
-    :value="old('doctor')"
+    :value="request('doctor')"
     placeholder="{{__('Doctor')}}"
     />
     <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-    <select class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
+    <select name="speciality" class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
             <option value="">{{__('Choose Speciality')}}</option> 
         @foreach (config('medical_specialities') as $key => $speciality)
              <option value="{{$speciality}}">{{$speciality}}</option>
          @endforeach
     </select>
 
-    <select class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
+    <select name="wilaya" class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75">
             <option value="">Choose your wilaya</option> 
         @foreach ($wilayas as $key => $wilaya)
              <option value="{{$wilaya}}">{{$wilaya}}</option>

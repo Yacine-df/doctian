@@ -7,9 +7,9 @@
                     alt="">
                 <div class="flex flex-col items-start justify-center mx-4 pl-2">
                     <a href="#">
-                        <h1 class="font-bold">Dr, Mohammed Mansouri</h1>
+                        <h1 class="font-bold">Dr,{{ $doctor->user->name ." ".$doctor->user->famillyName}}</h1>
                     </a>
-                    <span class="mt-1">Cardiologue</span>
+                    <span class="mt-1">{{$doctor->speciality}}</span>
                     <span>Téléconsultation / a domicile</span>
                     {{-- <div x-data="{rateValue : 0}">
                 <input type="text" hidden x-bind:value="rateValue">
@@ -23,15 +23,15 @@
                 <div class="ml-2">
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-envelope w-4 h-4 mr-2 text-yellow-500"></i>
-                        <span class="font-bold">doc@gmail.com</span>
+                        <span class="font-bold">{{$doctor->user->email}}</span>
                     </div>
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-phone w-4 h-4 mr-2 text-blue-500"></i>
-                        <span class="font-bold">0694345839</span>
+                        <span class="font-bold">{{$doctor->user->phone}}</span>
                     </div>
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-location-dot w-4 h-4 mr-2 text-red-500"></i>
-                        <span class="font-bold">Bordj bou arreridj, BBA</span>
+                        <span class="font-bold">{{$doctor->user->wilaya}} , {{$doctor->user->commune}}</span>
                     </div>
                 </div>
                 <div>
