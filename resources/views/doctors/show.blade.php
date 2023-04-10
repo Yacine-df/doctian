@@ -1,15 +1,16 @@
 <x-guest-layout>
-    <section class="grid md:grid-cols-12 gap-2 mt-4">
+    <section class="grid md:grid-cols-12 gap-2 mt-4" x-data="{ open: false }">
         <aside class="col-span-12 md:col-span-4 rounded first-line:flex flex-col items-center justify-center">
             <div class="bg-white w-full py-6 px-2 flex flex-col items-center justify-center rounded shadow">
                 <img class="object-cover w-24 h-24 rounded-full my-2"
                     src="https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
                     alt="">
                 <div class="flex flex-col items-start justify-center mx-4 pl-2">
-                    <a href="#">
-                        <h1 class="font-bold">Dr,{{ $doctor->user->name ." ".$doctor->user->famillyName}}</h1>
+                    <h1 class="font-bold">Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}</h1>
+                    <a href="/doctors?speciality={{ $doctor->speciality }}"
+                        class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1">
+                        {{ $doctor->speciality }}
                     </a>
-                    <span class="mt-1">{{$doctor->speciality}}</span>
                     <span>Téléconsultation / a domicile</span>
                     {{-- <div x-data="{rateValue : 0}">
                 <input type="text" hidden x-bind:value="rateValue">
@@ -23,15 +24,15 @@
                 <div class="ml-2">
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-envelope w-4 h-4 mr-2 text-yellow-500"></i>
-                        <span class="font-bold">{{$doctor->user->email}}</span>
+                        <span class="font-bold">{{ $doctor->user->email }}</span>
                     </div>
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-phone w-4 h-4 mr-2 text-blue-500"></i>
-                        <span class="font-bold">{{$doctor->user->phone}}</span>
+                        <span class="font-bold">{{ $doctor->user->phone }}</span>
                     </div>
                     <div class="flex mt-2 items-center">
                         <i class="fa-solid fa-location-dot w-4 h-4 mr-2 text-red-500"></i>
-                        <span class="font-bold">{{$doctor->user->wilaya}} , {{$doctor->user->commune}}</span>
+                        <span class="font-bold">{{ $doctor->user->wilaya }} , {{ $doctor->user->commune }}</span>
                     </div>
                 </div>
                 <div>
@@ -42,34 +43,68 @@
             </div>
         </aside>
         <div class="col-span-12 md:col-span-8">
-            <div x-data="{ date: '', time: '' }"
-                class="col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center ">
-                <h1 class="font-bold text-2xl text-center mt-2">
-                    {{ __('Take an Appointment') }}
-                </h1>
-                <span class="my-4 pt-4">
-                    {{ __('Choose day and date for your appointment') }}
-                </span>
-                <div class="flex items-center justify-center text-black">
-                    <input type="date" class="rounded w-1/2 mr-2" x-model="date">
-                    <select class="rounded w-1/2 mr-2" name="hour" id="" x-model="time">
-                        <option value="">Select a hour</option>
-                        @for ($i = 8; $i <= 20; $i++)
-                            <option value="{{ $i }}">{{ $i . ':00' }}</option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="mt-6" x-show="date || time ? true : false">
-                    You have chosen appointment in <span x-text="date"></span> at <span x-text="time + ':00'">9:00
+            @auth
+                <div x-data="{ date: '', time: '' }"
+                    class="col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center ">
+                    <h1 class="font-bold text-2xl text-center mt-2">
+                        {{ __('Take an Appointment') }}
+                    </h1>
+                    <span class="my-4 pt-4">
+                        {{ __('Choose day and date for your appointment') }}
                     </span>
-                    <br>
-                    Your appointment will be confirmed by the doctor
+                    <form action="">
+                        <div class="flex items-center justify-center text-black">
+                            <input type="date" class="rounded mr-2" x-model="date"
+                                min="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+                            <select class="rounded mr-2" name="hour" x-model="time">
+                                <option value="">Select a hour</option>
+                                @for ($i = 8; $i <= 20; $i++)
+                                    <option value="{{ $i }}">{{ $i . ':00' }}</option>
+                                @endfor
+                            </select>
+                            <select name="" class="rounded">
+                                <option value="">Select consultation Type</option>
+                                <option value="online">{{ __('Teleconsultation') }}</option>
+                                <option value="home">{{ __('At Home') }}</option>
+                                <option value="clinic">{{ 'At Clinic' }}</option>
+                            </select>
+                        </div>
+
+                        <div x-show="date || time ? true : false" x-cloak class="flex items-center mt-6 justify-around">
+                            <x-primary-button class="text-black mt-4 rounded py-2 px-6 font-bold"
+                                @click="alert(date + '/' + time)">
+                                Send Demand
+                            </x-primary-button>
+                            <x-primary-button @click.prevent="open = true"
+                                class=" text-black mt-4 rounded py-2 px-6 font-bold">
+                                Show Appointment Details
+                            </x-primary-button>
+                        </div>
+                    </form>
+
+                    <div class="mt-6" x-show="date || time ? true : false" x-cloak>
+                        You have chosen appointment in
+                        <span x-text="date"></span> at <span x-text="time + ':00'">
+                        </span>
+                        <br>
+                        Your appointment will be confirmed by the doctor
+                    </div>
+                    <div class="">
+
+                    </div>
                 </div>
-                <div x-show="date || time ? true : false">
-                    <button class="bg-white text-black mt-4 rounded py-2 px-6 font-bold"
-                        @click="alert(date + '/' + time)">Send Demand</button>
+            @endauth
+            @guest
+                <div
+                    class="grif place-content-center col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center">
+                    <h1 class="font-bold text-2xl text-center mt-2">
+                        {{ __('If you want to be able to take an appointment you should') }}
+                        <a href="/login" class="text-blue-500">{{ __('Login') }}</a>
+                        {{ __('Or') }}
+                        <a href="/register" class="text-blue-500">{{ __('Register') }}</a>
+                    </h1>
                 </div>
-            </div>
+            @endguest
         </div>
         <aside class="col-span-12 md:col-span-4">
             <div class="rounded mt-4 bg-white py-6 px-2 shadow">
@@ -82,50 +117,52 @@
                 </p>
             </div>
             {{-- comments --}}
-             <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
+            <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
                 <article class="flex space-x-4">
                     <div class="flex-shrink-0">
-                        <img src="https://i.pravatar.cc/60?u=12" alt="" width="60" height="60" class="rounded-xl">
+                        <img src="https://i.pravatar.cc/60?u=12" alt="" width="60" height="60"
+                            class="rounded-xl">
                     </div>
-            
+
                     <div>
                         <header class="mb-4">
                             <h3 class="font-bold">Yacine</h3>
-            
+
                             <p class="text-xs">
                                 Posted
                                 <time>12/&é/&é</time>
                             </p>
                         </header>
-            
+
                         <p>
                             Good doctor
                         </p>
                     </div>
                 </article>
-             </div>
-             <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
+            </div>
+            <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
                 <article class="flex space-x-4">
                     <div class="flex-shrink-0">
-                        <img src="https://i.pravatar.cc/60?u=12" alt="" width="60" height="60" class="rounded-xl">
+                        <img src="https://i.pravatar.cc/60?u=12" alt="" width="60" height="60"
+                            class="rounded-xl">
                     </div>
-            
+
                     <div>
                         <header class="mb-4">
                             <h3 class="font-bold">Yacine</h3>
-            
+
                             <p class="text-xs">
                                 Posted
                                 <time>12/&é/&é</time>
                             </p>
                         </header>
-            
+
                         <p>
                             Good doctor
                         </p>
                     </div>
                 </article>
-             </div>
+            </div>
             {{-- form --}}
             <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
                 <form method="POST" action="/doctors/comments">
@@ -160,6 +197,146 @@
                 height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-
+        <!--show  Appointment Detail -->
+        <div 
+        x-data="{
+            appointment : {
+                doctor : {
+                    fullName : 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
+                    speciality : '{{ $doctor->speciality }}',
+                    ConsultationType : 'Téléconsultation / a domicile',
+                    email : '{{ $doctor->user->email }}',
+                    phone : '{{ $doctor->user->phone }}',
+                    wilaya :'{{ $doctor->user->wilaya }}',
+                    commune : '{{ $doctor->user->commune }}'
+                },
+                user : {
+                    
+                }
+            }
+        }"
+        x-show="open" 
+        x-cloak 
+        @click="open = false" 
+        x-transition
+            class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden bg-gray-100/70 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+            <div class="relative w-full h-full md:h-auto grid place-items-center">
+                <!-- Modal content -->
+                <div @click.stop class="relative  bg-white rounded-lg shadow dark:bg-gray-700 w-full md:w-3/4">
+                    <!-- Modal header -->
+                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Appointments Detail
+                        </h3>
+                        <button @click="open = false"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="staticModal">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 mt-2 grid grid-cols-10 gap-2">
+                        {{-- doctor Detail --}}
+                        <div
+                            class="col-span-4 bg-white w-full py-6 px-2 flex flex-col items-center justify-center rounded shadow">
+                            <img class="object-cover w-24 h-24 rounded-full my-2"
+                                src="https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
+                                alt="">
+                            <div class="flex flex-col items-start justify-center mx-4 pl-2">
+                                <h1 class="font-bold" x-text="appointment.doctor.fullName"></h1>
+                                <a href="/doctors?speciality={{ $doctor->speciality }}"
+                                   class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1" 
+                                    x-text="appointment.doctor.speciality">
+                                </a>
+                                <span x-text="appointment.doctor.ConsultationType"></span>
+                            </div>
+                            <div class="ml-2">
+                                <div class="flex mt-2 items-center">
+                                    <i class="fa-solid fa-envelope w-4 h-4 mr-2 text-yellow-500"></i>
+                                    <span class="font-bold" x-text="appointment.doctor.email"></span>
+                                </div>
+                                <div class="flex mt-2 items-center">
+                                    <i class="fa-solid fa-phone w-4 h-4 mr-2 text-blue-500"></i>
+                                    <span class="font-bold" x-text="appointment.doctor.phone"></span>
+                                </div>
+                                <div class="flex mt-2 items-center">
+                                    <i class="fa-solid fa-location-dot w-4 h-4 mr-2 text-red-500"></i>
+                                    <span class="font-bold" x-text="appointment.doctor.wilaya , appointment.doctor.commune"></span>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Appointment and personal infos --}}
+                        <section class="col-span-6 flex flex-col shadow py-2 px-4">
+                            <div class="flex flex-col items-center justify-between">
+                                <div class="w-full flex flex-col items-center bg-gray-100 p-2 rounded-md">
+                                    <div class="w-full flex items-center justify-between">
+                                        <h1 class="font-bold text-2xl">{{__('Date')}}: </h1>
+                                        <span
+                                            class="font-bold text-black text-2xl bg-gray-300 rounded-full px-4 py-1bg-gray-300 ">
+                                            2023-12-11
+                                        </span>
+                                    </div>
+                                    <div class="w-full flex items-center justify-between mt-2">
+                                        <div class="flex items-center">
+                                            <h1 class="mr-2 font-bold">{{ __('From') }}:</h1>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">9:00 AM</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <h1 class="mr-2 font-bold">{{ __('To') }}:</h1>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">10:00 AM</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <h1 class="mr-2 font-bold">{{ __('Consultation type') }}:</h1>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">Online</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- personal infos --}}
+                                <div class="w-full flex flex-col items-center p-2 rounded-md">
+                                    <div class="w-full flex items-center justify-between mt-2">
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('Name') }}:</h1>
+                                            <span>{{auth()->user()->name}}</span>
+                                        </div>
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('famillyName') }}:</h1>
+                                            <span>{{auth()->user()->famillyName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full flex items-center justify-between mt-2">
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('Phone Number') }}:</h1>
+                                            <span>{{auth()->user()->phone}}</span>
+                                        </div>
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('Age') }}:</h1>
+                                            <span>22</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full flex items-center justify-between mt-2">
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('insurance number') }}:</h1>
+                                            <span>{{auth()->user()->userable->insurance_number}}</span>
+                                        </div>
+                                        <div class="flex">
+                                            <h1 class="mr-2 font-bold">{{ __('State') }}:</h1>
+                                            <span>{{auth()->user()->wilaya}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full  mt-2">
+                                        <div class="flex text-sm">
+                                            <h1 class="mr-2 font-bold">{{ __('Created at') }}:</h1>
+                                            <span>{{\Carbon\Carbon::now()}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
     </section>
 </x-guest-layout>

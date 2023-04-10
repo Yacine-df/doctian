@@ -1124,8 +1124,12 @@
     "Income" : "الدخل",
     "Online Sessions" : "جلسات عن بعد",
     "Requests" : "طلبات",
-    "See All" : ""
-    
+    "See All" : "اظهار الكل",
+    "If you want to be able to take an appointment you should":"لكي تكون قادرا على اخذ موعد طبي يجب عليك ان ",
+    "Or":"او",
+    "Age":"العمر",
+    "Created at" : "تم الانشاء في",
+    "Consultation type": "نوع الموعد"
     
 
 }

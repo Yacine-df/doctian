@@ -47,11 +47,7 @@ class Doctor extends Model
         );
 
 
-        if($filters['doctor'] ?? false){
-            //inspecting the content of user
-            
         }
-    }
 
     public function user(){
 

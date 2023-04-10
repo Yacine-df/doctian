@@ -1124,5 +1124,8 @@
     "Income" : "Revenus",
     "Online Sessions" : "Session Online",
     "Requests" : "Demande de",
-    "See All" : "Voir tous"
+    "See All" : "Voir tous",
+    "If you want to be able to take an appointment you should":"Pour que vous pourrez prendre un rendez-vous il faut d'abord la ",
+    "Or":"ou bien l'",
+    "Created at" : "Crée le"
 }

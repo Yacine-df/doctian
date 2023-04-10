@@ -12,7 +12,7 @@
     <x-text-input id="doctor" class="rounded-full border mx-2 w-64 my-1 md:my-0 border-gray-200 hover:border-blue-600 border-2 transition-all ease-in-out duration-75"
     type="text"
     name="doctor"
-    :value="request('doctor')"
+    :value="old('doctor')"
     placeholder="{{__('Doctor')}}"
     />
     <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -30,7 +30,7 @@
              <option value="{{$wilaya}}">{{$wilaya}}</option>
          @endforeach
     </select>
-     <button class="rounded-full bg-blue-500 text-white my-1 md:my-0 px-12 w-64 py-2 mx-2 shadow-lg shadow-blue-500/50">
+     <button class="rounded-full bg-blue-500 hover:bg-blue-400 text-white my-1 md:my-0 px-12 w-64 py-2 mx-2 shadow-lg shadow-blue-500/50">
          {{__('Search')}}
      </button>
 </form> 

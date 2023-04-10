@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mt-4 w-full text-center text-2xl">
-        <h1 class="font-bold">Search Result</h1>
+        <h1 class="font-bold text-gray-500">Search Result</h1>
     </div>
     <section class="container grid md:grid-cols-2 gap-4 mt-6 p-4 rounded ">
         @foreach ($doctors as $doctor)
@@ -13,7 +13,9 @@
                     <a href="{{route('doctors.show',$doctor->id)}}">
                         <h1 class="font-bold">Dr,{{ $doctor->user->name ." ".$doctor->user->famillyName}}</h1>
                     </a>
-                    <span class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1">{{$doctor->speciality}}</span>
+                    <a href="/doctors?speciality={{$doctor->speciality}}" class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1">
+                        {{$doctor->speciality}}
+                    </a>
                     <span>Téléconsultation / a domicile</span>
                     {{-- <div x-data="{rateValue : 0}">
                     <input type="text" hidden x-bind:value="rateValue">
