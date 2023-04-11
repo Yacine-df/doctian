@@ -1,5 +1,41 @@
 <x-guest-layout>
-    <section class="grid md:grid-cols-12 gap-2 mt-4" x-data="{ open: false }">
+    <section x-data="{
+        open: false,
+        appointment: {
+            _token:  '{{ csrf_token() }}',
+            date: '',
+            time: '',
+            type: '',
+            createdAt : '{{ \Carbon\Carbon::now() }}',
+            doctor: {
+                fullName: 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
+                speciality: '{{ $doctor->speciality }}',
+                ConsultationType: 'Téléconsultation / a domicile',
+                email: '{{ $doctor->user->email }}',
+                phone: '{{ $doctor->user->phone }}',
+                wilaya: '{{ $doctor->user->wilaya }}',
+                commune: '{{ $doctor->user->commune }}'
+            },
+            user: {
+                name: '{{ auth()->user()->name ?? '' }}',
+                famillyName: '{{ auth()->user()->famillyName ?? '' }}',
+                phone: '{{ auth()->user()->phone ?? '' }}',
+                age: '22',
+                insuranceNumber: '{{ auth()->user()->userable->insurance_number ?? '' }}',
+                wilaya : '{{ auth()->user()->wilaya }}'
+            }
+        },
+        submit(){
+            fetch('/app' ,{
+                method : 'POST',
+                headers : {'Content-Type' : 'application/json'},
+                body : JSON.stringify(this.appointment)
+            })
+            .then(response => response.json())
+            .then(console.log)
+        }
+        
+    }" class="grid md:grid-cols-12 gap-2 mt-4">
         <aside class="col-span-12 md:col-span-4 rounded first-line:flex flex-col items-center justify-center">
             <div class="bg-white w-full py-6 px-2 flex flex-col items-center justify-center rounded shadow">
                 <img class="object-cover w-24 h-24 rounded-full my-2"
@@ -43,57 +79,55 @@
             </div>
         </aside>
         <div class="col-span-12 md:col-span-8">
-            @auth
-                <div x-data="{ date: '', time: '' }"
-                    class="col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center ">
-                    <h1 class="font-bold text-2xl text-center mt-2">
-                        {{ __('Take an Appointment') }}
-                    </h1>
-                    <span class="my-4 pt-4">
-                        {{ __('Choose day and date for your appointment') }}
-                    </span>
-                    <form action="">
-                        <div class="flex items-center justify-center text-black">
-                            <input type="date" class="rounded mr-2" x-model="date"
-                                min="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
-                            <select class="rounded mr-2" name="hour" x-model="time">
-                                <option value="">Select a hour</option>
-                                @for ($i = 8; $i <= 20; $i++)
-                                    <option value="{{ $i }}">{{ $i . ':00' }}</option>
-                                @endfor
-                            </select>
-                            <select name="" class="rounded">
-                                <option value="">Select consultation Type</option>
-                                <option value="online">{{ __('Teleconsultation') }}</option>
-                                <option value="home">{{ __('At Home') }}</option>
-                                <option value="clinic">{{ 'At Clinic' }}</option>
-                            </select>
-                        </div>
-
-                        <div x-show="date || time ? true : false" x-cloak class="flex items-center mt-6 justify-around">
-                            <x-primary-button class="text-black mt-4 rounded py-2 px-6 font-bold"
-                                @click="alert(date + '/' + time)">
-                                Send Demand
-                            </x-primary-button>
-                            <x-primary-button @click.prevent="open = true"
-                                class=" text-black mt-4 rounded py-2 px-6 font-bold">
-                                Show Appointment Details
-                            </x-primary-button>
-                        </div>
-                    </form>
-
-                    <div class="mt-6" x-show="date || time ? true : false" x-cloak>
-                        You have chosen appointment in
-                        <span x-text="date"></span> at <span x-text="time + ':00'">
+            @if (auth()->user())
+                @auth
+                    <div
+                        class="col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center ">
+                        <h1 class="font-bold text-2xl text-center mt-2">
+                            {{ __('Take an Appointment') }}
+                        </h1>
+                        <span class="my-4 pt-4">
+                            {{ __('Choose day and date for your appointment') }}
                         </span>
-                        <br>
-                        Your appointment will be confirmed by the doctor
-                    </div>
-                    <div class="">
+                        <form action="">
+                            <div class="flex items-center justify-center text-black">
+                                <input name="date" type="date" class="rounded mr-2" x-model="appointment.date"
+                                    min="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+                                <select class="rounded mr-2" name="time" x-model="appointment.time">
+                                    <option value="">Select a hour</option>
+                                    @for ($i = 8; $i <= 20; $i++)
+                                        <option value="{{ $i }}">{{ $i . ':00' }}</option>
+                                    @endfor
+                                </select>
+                                <select name="type" class="rounded" x-model="appointment.type">
+                                    <option value="">Select consultation Type</option>
+                                    <option value="online">{{ __('Teleconsultation') }}</option>
+                                    <option value="home">{{ __('At Home') }}</option>
+                                    <option value="clinic">{{ __('At Clinic') }}</option>
+                                </select>
+                            </div>
 
+                            <div x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true" x-cloak class="flex items-center mt-6 justify-around">
+                                <x-primary-button class="text-black mt-4 rounded py-2 px-6 font-bold"
+                                    @click.prevent="submit">
+                                    Send Demand
+                                </x-primary-button>
+                                <x-primary-button @click.prevent="open = true"
+                                    class=" text-black mt-4 rounded py-2 px-6 font-bold">
+                                    Show Appointment Details
+                                </x-primary-button>
+                            </div>
+                        </form>
+
+                        <div class="mt-6" x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true" x-cloak>
+                            Your appointment will be confirmed by the doctor
+                        </div>
+                        <div class="">
+
+                        </div>
                     </div>
-                </div>
-            @endauth
+                @endauth
+            @endif
             @guest
                 <div
                     class="grif place-content-center col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center">
@@ -143,7 +177,7 @@
             <div class="col-span-4 border bg-white border-gray-200 p-6 rounded-xl mt-2">
                 <article class="flex space-x-4">
                     <div class="flex-shrink-0">
-                        <img src="https://i.pravatar.cc/60?u=12" alt="" width="60" height="60"
+                        <img src="https://i.pravatar.cc/60?u=1" alt="" width="60" height="60"
                             class="rounded-xl">
                     </div>
 
@@ -198,27 +232,7 @@
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <!--show  Appointment Detail -->
-        <div 
-        x-data="{
-            appointment : {
-                doctor : {
-                    fullName : 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
-                    speciality : '{{ $doctor->speciality }}',
-                    ConsultationType : 'Téléconsultation / a domicile',
-                    email : '{{ $doctor->user->email }}',
-                    phone : '{{ $doctor->user->phone }}',
-                    wilaya :'{{ $doctor->user->wilaya }}',
-                    commune : '{{ $doctor->user->commune }}'
-                },
-                user : {
-                    
-                }
-            }
-        }"
-        x-show="open" 
-        x-cloak 
-        @click="open = false" 
-        x-transition
+        <div x-show="open" x-cloak @click="open = false" x-transition
             class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden bg-gray-100/70 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
             <div class="relative w-full h-full md:h-auto grid place-items-center">
                 <!-- Modal content -->
@@ -250,7 +264,7 @@
                             <div class="flex flex-col items-start justify-center mx-4 pl-2">
                                 <h1 class="font-bold" x-text="appointment.doctor.fullName"></h1>
                                 <a href="/doctors?speciality={{ $doctor->speciality }}"
-                                   class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1" 
+                                    class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1"
                                     x-text="appointment.doctor.speciality">
                                 </a>
                                 <span x-text="appointment.doctor.ConsultationType"></span>
@@ -266,7 +280,8 @@
                                 </div>
                                 <div class="flex mt-2 items-center">
                                     <i class="fa-solid fa-location-dot w-4 h-4 mr-2 text-red-500"></i>
-                                    <span class="font-bold" x-text="appointment.doctor.wilaya , appointment.doctor.commune"></span>
+                                    <span class="font-bold"
+                                        x-text="appointment.doctor.wilaya , appointment.doctor.commune"></span>
                                 </div>
                             </div>
                         </div>
@@ -275,66 +290,70 @@
                             <div class="flex flex-col items-center justify-between">
                                 <div class="w-full flex flex-col items-center bg-gray-100 p-2 rounded-md">
                                     <div class="w-full flex items-center justify-between">
-                                        <h1 class="font-bold text-2xl">{{__('Date')}}: </h1>
+                                        <h1 class="font-bold text-2xl">{{ __('Date') }}: </h1>
                                         <span
-                                            class="font-bold text-black text-2xl bg-gray-300 rounded-full px-4 py-1bg-gray-300 ">
-                                            2023-12-11
-                                        </span>
+                                            class="font-bold text-black text-2xl bg-gray-300 rounded-full px-4 py-1bg-gray-300 "
+                                            x-text="appointment.date"></span>
                                     </div>
                                     <div class="w-full flex items-center justify-between mt-2">
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('From') }}:</h1>
-                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">9:00 AM</span>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
+                                                x-text="appointment.time +':00'"></span>
                                         </div>
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('To') }}:</h1>
-                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">10:00 AM</span>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
+                                                x-text="parseInt(appointment.time)+1 +':00'"></span>
                                         </div>
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('Consultation type') }}:</h1>
-                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1">Online</span>
+                                            <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
+                                                x-text="appointment.type"></span>
                                         </div>
                                     </div>
                                 </div>
                                 {{-- personal infos --}}
-                                <div class="w-full flex flex-col items-center p-2 rounded-md">
-                                    <div class="w-full flex items-center justify-between mt-2">
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('Name') }}:</h1>
-                                            <span>{{auth()->user()->name}}</span>
+                                @auth
+                                    <div class="w-full flex flex-col items-center p-2 rounded-md">
+                                        <div class="w-full flex items-center justify-between mt-2">
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('Name') }}:</h1>
+                                                <span x-text="appointment.user.name"></span>
+                                            </div>
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('famillyName') }}:</h1>
+                                                <span x-text="appointment.user.famillyName"></span>
+                                            </div>
                                         </div>
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('famillyName') }}:</h1>
-                                            <span>{{auth()->user()->famillyName}}</span>
+                                        <div class="w-full flex items-center justify-between mt-2">
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('Phone Number') }}:</h1>
+                                                <span x-text="appointment.user.phone"></span>
+                                            </div>
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('Age') }}:</h1>
+                                                <span>22</span>
+                                            </div>
+                                        </div>
+                                        <div class="w-full flex items-center justify-between mt-2">
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('insurance number') }}:</h1>
+                                                <span x-text="appointment.user.insuranceNumber"></span>
+                                            </div>
+                                            <div class="flex">
+                                                <h1 class="mr-2 font-bold">{{ __('State') }}:</h1>
+                                                <span x-text="appointment.user.wilaya"></span>
+                                            </div>
+                                        </div>
+                                        <div class="w-full  mt-2">
+                                            <div class="flex text-sm">
+                                                <h1 class="mr-2 font-bold">{{ __('Created at') }}:</h1>
+                                                <span x-text="appointment.createdAt"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="w-full flex items-center justify-between mt-2">
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('Phone Number') }}:</h1>
-                                            <span>{{auth()->user()->phone}}</span>
-                                        </div>
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('Age') }}:</h1>
-                                            <span>22</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex items-center justify-between mt-2">
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('insurance number') }}:</h1>
-                                            <span>{{auth()->user()->userable->insurance_number}}</span>
-                                        </div>
-                                        <div class="flex">
-                                            <h1 class="mr-2 font-bold">{{ __('State') }}:</h1>
-                                            <span>{{auth()->user()->wilaya}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full  mt-2">
-                                        <div class="flex text-sm">
-                                            <h1 class="mr-2 font-bold">{{ __('Created at') }}:</h1>
-                                            <span>{{\Carbon\Carbon::now()}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endauth
                             </div>
                         </section>
                     </div>
