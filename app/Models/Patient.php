@@ -16,10 +16,16 @@ class Patient extends Model
 
         return $this->morphOne('User', 'userable');
     }
+    
     public function doctors(){
+
         return $this->belongsToMany('Doctor');
+
     }
+
     public function appointments(){
+
         return $this->hasMany(Appointment::class);
+
     }
 }

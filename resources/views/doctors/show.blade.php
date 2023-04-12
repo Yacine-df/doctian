@@ -198,6 +198,13 @@
                 height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+        {{-- info pop up afterappointment has been set --}}
+        <x-info-button>
+            Appointment Set successfully,
+            <br> Your appointment will be confirmed by the doctor<br>
+            You Can visit your appointment schedule
+
+        </x-info-button>
         <!--show  Appointment Detail -->
         <div x-show="open" x-cloak @click="open = false" x-transition
             class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden bg-gray-100/70 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
@@ -220,6 +227,7 @@
                             </svg>
                         </button>
                     </div>
+                    
                     <!-- Modal body -->
                     <div class="p-4 mt-2 grid grid-cols-10 gap-2">
                         {{-- doctor Detail --}}
@@ -252,6 +260,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         {{-- Appointment and personal infos --}}
                         <section class="col-span-6 flex flex-col shadow py-2 px-4">
                             <div class="flex flex-col items-center justify-between">
@@ -320,6 +329,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 @endauth
                             </div>
                         </section>
@@ -329,6 +339,7 @@
         let appointmentApp = () => {
             return {
                 open: false,
+                shutdown : false,
                 appointment: {
                     _token: '{{ csrf_token() }}',
                     date: '',
@@ -363,8 +374,7 @@
                             },
                             body: JSON.stringify(this.appointment)
                         })
-                        .then(response => response.json())
-                        .then(console.log)
+                        .then(this.shutdown = true)
                 }
 
             }

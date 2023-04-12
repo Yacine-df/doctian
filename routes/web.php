@@ -53,7 +53,7 @@ Route::resource('doctors', DoctorController::class)->only([
     'index','show', 'destroy'
 ]);
 Route::post('/app', function (){
-    dd(request());
+    
 });
 Route::middleware('auth')->group(function(){
         //appointment
