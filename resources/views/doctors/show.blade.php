@@ -1,41 +1,5 @@
 <x-guest-layout>
-    <section x-data="{
-        open: false,
-        appointment: {
-            _token:  '{{ csrf_token() }}',
-            date: '',
-            time: '',
-            type: '',
-            createdAt : '{{ \Carbon\Carbon::now() }}',
-            doctor: {
-                fullName: 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
-                speciality: '{{ $doctor->speciality }}',
-                ConsultationType: 'Téléconsultation / a domicile',
-                email: '{{ $doctor->user->email }}',
-                phone: '{{ $doctor->user->phone }}',
-                wilaya: '{{ $doctor->user->wilaya }}',
-                commune: '{{ $doctor->user->commune }}'
-            },
-            user: {
-                name: '{{ auth()->user()->name ?? '' }}',
-                famillyName: '{{ auth()->user()->famillyName ?? '' }}',
-                phone: '{{ auth()->user()->phone ?? '' }}',
-                age: '22',
-                insuranceNumber: '{{ auth()->user()->userable->insurance_number ?? '' }}',
-                wilaya : '{{ auth()->user()->wilaya }}'
-            }
-        },
-        submit(){
-            fetch('/app' ,{
-                method : 'POST',
-                headers : {'Content-Type' : 'application/json'},
-                body : JSON.stringify(this.appointment)
-            })
-            .then(response => response.json())
-            .then(console.log)
-        }
-        
-    }" class="grid md:grid-cols-12 gap-2 mt-4">
+    <section x-data="appointmentApp()" class="grid md:grid-cols-12 gap-2 mt-4">
         <aside class="col-span-12 md:col-span-4 rounded first-line:flex flex-col items-center justify-center">
             <div class="bg-white w-full py-6 px-2 flex flex-col items-center justify-center rounded shadow">
                 <img class="object-cover w-24 h-24 rounded-full my-2"
@@ -107,7 +71,8 @@
                                 </select>
                             </div>
 
-                            <div x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true" x-cloak class="flex items-center mt-6 justify-around">
+                            <div x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true"
+                                x-cloak class="flex items-center mt-6 justify-around">
                                 <x-primary-button class="text-black mt-4 rounded py-2 px-6 font-bold"
                                     @click.prevent="submit">
                                     Send Demand
@@ -119,7 +84,9 @@
                             </div>
                         </form>
 
-                        <div class="mt-6" x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true" x-cloak>
+                        <div class="mt-6"
+                            x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true"
+                            x-cloak>
                             Your appointment will be confirmed by the doctor
                         </div>
                         <div class="">
@@ -358,4 +325,49 @@
                         </section>
                     </div>
     </section>
+    <script>
+        let appointmentApp = () => {
+            return {
+                open: false,
+                appointment: {
+                    _token: '{{ csrf_token() }}',
+                    date: '',
+                    time: '',
+                    type: '',
+                    createdAt: '{{ \Carbon\Carbon::now() }}',
+                    doctor: {
+                        doctorId: '{{ $doctor->id }}',
+                        fullName: 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
+                        speciality: '{{ $doctor->speciality }}',
+                        ConsultationType: 'Téléconsultation / a domicile',
+                        email: '{{ $doctor->user->email }}',
+                        phone: '{{ $doctor->user->phone }}',
+                        wilaya: '{{ $doctor->user->wilaya }}',
+                        commune: '{{ $doctor->user->commune }}'
+                    },
+                    user: {
+                        patientId: '{{ auth()->user()->id ?? '' }}',
+                        name: '{{ auth()->user()->name ?? '' }}',
+                        famillyName: '{{ auth()->user()->famillyName ?? '' }}',
+                        phone: '{{ auth()->user()->phone ?? '' }}',
+                        age: '22',
+                        insuranceNumber: '{{ auth()->user()->userable->insurance_number ?? '' }}',
+                        wilaya: '{{ auth()->user()->wilaya ?? '' }}'
+                    }
+                },
+                submit() {
+                    fetch('/app', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.appointment)
+                        })
+                        .then(response => response.json())
+                        .then(console.log)
+                }
+
+            }
+        }
+    </script>
 </x-guest-layout>

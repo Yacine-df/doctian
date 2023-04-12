@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/formStepper.css',
-                'resources/js/formStepper.js'
+                'resources/js/formStepper.js',
             ],
             refresh: true,
         }),
