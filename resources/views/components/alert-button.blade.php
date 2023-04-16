@@ -1,5 +1,5 @@
 <div  
-x-show="true"
+x-show="shutdown"
 x-cloak
 @click= ""
 x-transition

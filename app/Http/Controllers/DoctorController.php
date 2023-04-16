@@ -51,7 +51,14 @@ class DoctorController extends Controller
     public function show($id)
     {
         // $doctor = Doctor::with('user')->filter()->get();
+
         $doctor = Doctor::find($id);
+
+        if($doctor == NULL){
+
+            return abort(404, 'Not found');
+
+        }
 
         return view("doctors.show", compact('doctor'));
     }

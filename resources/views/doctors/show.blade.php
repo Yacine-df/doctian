@@ -55,15 +55,15 @@
                         </span>
                         <form action="">
                             <div class="flex items-center justify-center text-black">
-                                <input name="date" type="date" class="rounded mr-2" x-model="appointment.date"
+                                <input name="appointment_date" type="date" class="rounded mr-2" x-model="appointment.appointment_date"
                                     min="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
-                                <select class="rounded mr-2" name="time" x-model="appointment.time">
+                                <select class="rounded mr-2" name="appointment_time" x-model="appointment.appointment_time">
                                     <option value="">Select a hour</option>
                                     @for ($i = 8; $i <= 20; $i++)
                                         <option value="{{ $i }}">{{ $i . ':00' }}</option>
                                     @endfor
                                 </select>
-                                <select name="type" class="rounded" x-model="appointment.type">
+                                <select name="appointment_type" class="rounded" x-model="appointment.appointment_type">
                                     <option value="">Select consultation Type</option>
                                     <option value="online">{{ __('Teleconsultation') }}</option>
                                     <option value="home">{{ __('At Home') }}</option>
@@ -71,7 +71,7 @@
                                 </select>
                             </div>
 
-                            <div x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true"
+                            <div x-show="appointment.appointment_date == '' || appointment.appointment_time == ''  || appointment.appointment_type == '' ? false : true"
                                 x-cloak class="flex items-center mt-6 justify-around">
                                 <x-primary-button class="text-black mt-4 rounded py-2 px-6 font-bold"
                                     @click.prevent="submit">
@@ -85,7 +85,7 @@
                         </form>
 
                         <div class="mt-6"
-                            x-show="appointment.date == '' || appointment.time == ''  || appointment.type == '' ? false : true"
+                            x-show="appointment.appointment_date == '' || appointment.appointment_time == ''  || appointment.appointment_type == '' ? false : true"
                             x-cloak>
                             Your appointment will be confirmed by the doctor
                         </div>
@@ -237,26 +237,27 @@
                                 src="https://img.freepik.com/free-photo/attractive-young-male-nutriologist-lab-coat-smiling-against-white-background_662251-2960.jpg?w=2000"
                                 alt="">
                             <div class="flex flex-col items-start justify-center mx-4 pl-2">
-                                <h1 class="font-bold" x-text="appointment.doctor.fullName"></h1>
+                                <h1 class="font-bold">{{$doctor->user->name}}, {{$doctor->user->famillyName}}</h1>
                                 <a href="/doctors?speciality={{ $doctor->speciality }}"
                                     class="mt-1 bg-blue-200 text-sm py-1 px-2 rounded-full text-blue-800 mb-1"
-                                    x-text="appointment.doctor.speciality">
+                                   >{{ $doctor->speciality }}
                                 </a>
-                                <span x-text="appointment.doctor.ConsultationType"></span>
+                                <span>Téléconsultation / a domicile</span>
                             </div>
                             <div class="ml-2">
                                 <div class="flex mt-2 items-center">
                                     <i class="fa-solid fa-envelope w-4 h-4 mr-2 text-yellow-500"></i>
-                                    <span class="font-bold" x-text="appointment.doctor.email"></span>
+                                    <span class="font-bold">{{ $doctor->user->email }}</span>
                                 </div>
                                 <div class="flex mt-2 items-center">
                                     <i class="fa-solid fa-phone w-4 h-4 mr-2 text-blue-500"></i>
-                                    <span class="font-bold" x-text="appointment.doctor.phone"></span>
+                                    <span class="font-bold">{{ $doctor->user->phone}}</span>
                                 </div>
                                 <div class="flex mt-2 items-center">
                                     <i class="fa-solid fa-location-dot w-4 h-4 mr-2 text-red-500"></i>
-                                    <span class="font-bold"
-                                        x-text="appointment.doctor.wilaya , appointment.doctor.commune"></span>
+                                    <span class="font-bold">
+                                        {{ $doctor->user->wilaya }} , {{ $doctor->user->commune }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -295,31 +296,31 @@
                                         <div class="w-full flex items-center justify-between mt-2">
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('Name') }}:</h1>
-                                                <span x-text="appointment.user.name"></span>
+                                                <span>{{ auth()->user()->name ?? '' }}</span>
                                             </div>
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('famillyName') }}:</h1>
-                                                <span x-text="appointment.user.famillyName"></span>
+                                                <span>{{ auth()->user()->famillyName ?? ''  }}</span>
                                             </div>
                                         </div>
                                         <div class="w-full flex items-center justify-between mt-2">
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('Phone Number') }}:</h1>
-                                                <span x-text="appointment.user.phone"></span>
+                                                <span>{{ auth()->user()->phone ?? '' }}</span>
                                             </div>
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('Age') }}:</h1>
-                                                <span>22</span>
+                                                <span>{{auth()->user()->age ?? '22' }} ans</span>
                                             </div>
                                         </div>
                                         <div class="w-full flex items-center justify-between mt-2">
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('insurance number') }}:</h1>
-                                                <span x-text="appointment.user.insuranceNumber"></span>
+                                                <span>{{auth()->user()->userable->insurance_number ?? '' }}</span>
                                             </div>
                                             <div class="flex">
                                                 <h1 class="mr-2 font-bold">{{ __('State') }}:</h1>
-                                                <span x-text="appointment.user.wilaya"></span>
+                                                <span>{{ auth()->user()->wilaya ?? '' }}</span>
                                             </div>
                                         </div>
                                         <div class="w-full  mt-2">
@@ -329,7 +330,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @endauth
                             </div>
                         </section>
@@ -342,32 +342,16 @@
                 shutdown : false,
                 appointment: {
                     _token: '{{ csrf_token() }}',
-                    date: '',
-                    time: '',
-                    type: '',
+                    appointment_date: '',
+                    appointment_time: '',
+                    appointment_type: '',
                     createdAt: '{{ \Carbon\Carbon::now() }}',
-                    doctor: {
-                        doctorId: '{{ $doctor->id }}',
-                        fullName: 'Dr,{{ $doctor->user->name . ' ' . $doctor->user->famillyName }}',
-                        speciality: '{{ $doctor->speciality }}',
-                        ConsultationType: 'Téléconsultation / a domicile',
-                        email: '{{ $doctor->user->email }}',
-                        phone: '{{ $doctor->user->phone }}',
-                        wilaya: '{{ $doctor->user->wilaya }}',
-                        commune: '{{ $doctor->user->commune }}'
-                    },
-                    user: {
-                        patientId: '{{ auth()->user()->id ?? '' }}',
-                        name: '{{ auth()->user()->name ?? '' }}',
-                        famillyName: '{{ auth()->user()->famillyName ?? '' }}',
-                        phone: '{{ auth()->user()->phone ?? '' }}',
-                        age: '22',
-                        insuranceNumber: '{{ auth()->user()->userable->insurance_number ?? '' }}',
-                        wilaya: '{{ auth()->user()->wilaya ?? '' }}'
-                    }
+                    doctor_id: '{{ $doctor->id }}',
+                    patient_id: '{{ auth()->user()->userable_id ?? '' }}',
                 },
                 submit() {
-                    fetch('/app', {
+                    try {
+                        fetch('{{route('appointments.store')}}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -375,6 +359,10 @@
                             body: JSON.stringify(this.appointment)
                         })
                         .then(this.shutdown = true)
+                        .then(this.appointment.appointment_date,this.appointment.appointment_time,this.appointment.appointment_type = '')
+                    } catch (error) {
+                        console.log('There was an error', error);
+                    }
                 }
 
             }

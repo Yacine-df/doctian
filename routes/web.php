@@ -52,9 +52,7 @@ Route::get('/d/dashboard/patients/a', function () {
 Route::resource('doctors', DoctorController::class)->only([
     'index','show', 'destroy'
 ]);
-Route::post('/app', function (){
-    
-});
+
 Route::middleware('auth')->group(function(){
         //appointment
         Route::resource('appointments', AppointmentController::class);
