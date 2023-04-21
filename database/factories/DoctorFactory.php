@@ -18,7 +18,6 @@ class DoctorFactory extends Factory
     {
         return [
             'speciality' => $this->faker->word(),
-            'clinic' => $this->faker->word(),
         ];
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\AppointmentTaken;
 use App\Events\LogedIn;
 use App\Listeners\LogLogedInAction;
 use App\Listeners\LogRegistrationAction;
+use App\Listeners\SendAppointmentTakenNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LogedIn::class => [
             LogLogedInAction::class
+        ],
+        AppointmentTaken::class => [
+            SendAppointmentTakenNotification::class
         ]
     ];
 

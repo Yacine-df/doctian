@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
@@ -28,7 +34,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.register.doctor');
     }
 
     /**
@@ -39,7 +45,38 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'famillyName' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'wilaya' => ['required','string','max:255'],
+            'commune' =>  ['required','string','max:255'],
+            'phone' => ['required','digits_between:9,10'],
+            'address' => ['required', 'string'],
+            'speciality' => ['required','string']
+        ]);
+        $doctor = Doctor::create([
+            'speciality' => $request->speciality
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'famillyName' => $request->famillyName,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'wilaya' => $request->wilaya,
+            'commune' => $request->commune,
+            'phone' => $request->phone,
+            'userable_id' => $doctor->id,
+            'userable_type' => Doctor::class
+        ]);
+
+        Auth::login($user);
+
+        event(new Registered($user));
+
+        return redirect(RouteServiceProvider::DHOME);
     }
 
     /**

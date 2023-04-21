@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->string('speciality');
-            $table->string('clinic');
             $table->timestamps();
         });
     }

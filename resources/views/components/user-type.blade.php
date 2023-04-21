@@ -3,5 +3,5 @@
     <div class="flex flex-col justify-between p-4 leading-normal">
         <h5 class="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">{{$userType}}</h5>
     </div>
-    <img class="object-cover w-full rounded-t-lg h-80 md:w-48 md:rounded-none md:rounded-l-lg" src="https://as2.ftcdn.net/v2/jpg/05/57/73/57/1000_F_557735785_gE0Y9OetnBamXae7JVOJITnXeItrKqLU.webp" alt="">
+    <img class="object-cover w-full rounded-t-lg h-80 md:rounded-none md:rounded-l-lg" src="https://as2.ftcdn.net/v2/jpg/05/57/73/57/1000_F_557735785_gE0Y9OetnBamXae7JVOJITnXeItrKqLU.webp" alt="">
 </a>

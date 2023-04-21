@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\log;
@@ -36,11 +37,12 @@ Route::get('/p/dashboard', function () {
 
 //doctor
 Route::get('/d/dashboard', function () {
-    return view('auth.dashboard.doctorDashboard');
+    $appointments = Appointment::with(['patient','doctor'])->where('doctor_id','=',auth()->user()->userable_id)->get();
+    return view('auth.dashboard.doctorDashboard',compact('appointments'));
 })->middleware(['auth', 'verified','doctor'])->name('doctorDashboard');
 //doctor
 Route::get('/d/dashboard/patients', function () {
-    return view('auth.patients');
+    return view('auth.patients.index');
 })->middleware(['auth', 'verified','doctor'])->name('patients.index');
 //doctor
 Route::get('/d/dashboard/patients/a', function () {
@@ -50,7 +52,7 @@ Route::get('/d/dashboard/patients/a', function () {
 
 //doctor
 Route::resource('doctors', DoctorController::class)->only([
-    'index','show', 'destroy'
+    'index','show', 'destroy','create','store'
 ]);
 
 Route::middleware('auth')->group(function(){

@@ -120,7 +120,7 @@
                 @endauth
             </div>
         </nav>
-        @if (! request()->route()->named(['default','login','register','patient.register','doctor.register']))
+        @if (! request()->route()->named(['default','login','register','patient.register','doctors.create']))
             {{-- search form --}}
             <div class="bg-white p-6 rounded shadow">
                 <x-doctor-search></x-doctor-search>

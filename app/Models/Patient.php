@@ -11,10 +11,11 @@ class Patient extends Model
     use HasFactory;
 
     protected $guarded =[];
+    protected $with = ['user'];
 
     public function user(){
 
-        return $this->morphOne('User', 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
     
     public function doctors(){

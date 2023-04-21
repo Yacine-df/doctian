@@ -32,7 +32,7 @@
                         <h2 class="font-bold flex mb text-gray-400">
                             {{ __('Appointments') }}
                         </h2>
-                        <h1 class="mt-2 font-bold text-3xl">222</p>
+                        <h1 class="mt-2 font-bold text-3xl">{{ count($appointments) }}</p>
                     </div>
                 </div>
                 <div class="bg-white p-4 rounded shadow flex items-center justify-around m-1 md:m-0 relative">
@@ -59,48 +59,25 @@
                 </div>
                 <div class="bg-white rounded-md p-4 mt-2">
                     <ul>
-                        <li class="flex items-center justify-between py-2 px-1 bg-blue-100 rounded-md">
-                            <div class="mx-2">
-                                <img class="object-cover w-8 h-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                    alt="">
-                            </div>
-                            <div class="flex-1 ml-2">
-                                <h1 class="font-bold text-blue-500">Jeff Maccoy</h1>
-                                <span class="text-blue-500 text-sm">Online</span>
-                            </div>
-                            <div class="mr-4 font-bold">
-                                <span class="text-blue-500">12:00</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center justify-between py-2 px-1 my-2 rounded-md hover:bg-blue-100">
-                            <div class="mx-2">
-                                <img class="object-cover w-8 h-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                    alt="">
-                            </div>
-                            <div class="flex-1 ml-2">
-                                <h1 class="font-bold">Jeff Maccoy</h1>
-                                <span>Online</span>
-                            </div>
-                            <div class="mr-4 font-bold">
-                                <span>12:00</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center justify-between py-2 px-1 my-2 rounded-md">
-                            <div class="mx-2">
-                                <img class="object-cover w-8 h-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                    alt="">
-                            </div>
-                            <div class="flex-1 ml-2">
-                                <h1 class="font-bold">Jeff Maccoy</h1>
-                                <span>Online</span>
-                            </div>
-                            <div class="mr-4 font-bold">
-                                <span>12:00</span>
-                            </div>
-                        </li>
+                        @if (count($appointments))
+                            @foreach ($appointments as $appointment)
+                                <li class="flex items-center justify-between py-2 px-1 bg-blue-100 rounded-md">
+                                    <div class="mx-2">
+                                        <img class="object-cover w-8 h-8 rounded-full"
+                                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                            alt="">
+                                    </div>
+                                    <div class="flex-1 ml-2">
+                                        <h1 class="font-bold text-blue-500">{{ $appointment->patient->user->name }}</h1>
+                                        <span class="text-blue-500 text-sm">{{ $appointment->appointment_type }}</span>
+                                    </div>
+                                    <div class="mr-4 font-bold">
+                                        <span class="text-blue-500">{{ $appointment->appointment_time }}:00</span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @else
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -111,46 +88,47 @@
                 </div>
                 <div class="bg-white rounded-md p-4 mt-2  h-64 overflow-y-auto">
                     <ul>
-                        <li class="flex items-center justify-between py-2 px-1 mb-2 rounded-md hover:bg-blue-100">
-                            <div class="mx-2">
-                                <img class="object-cover w-8 h-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                    alt="">
-                            </div>
-                            <div class="flex-1 ml-2">
-                                <h1 class="font-bold">Jeff Maccoy</h1>
-                                <span class="block text-xs">Online</span>
-                                <span> 29 February - 10:00 am</span>
-                            </div>
-                            <div class="mr-4 font-bold">
-                                <span class="mx-1 cursor-pointer">
-                                    <i class="fa-regular fa-circle-check text-blue-500 text-xl"></i>
-                                </span>
-                                <span class="mx-1 cursor-pointer">
-                                    <i class="fa-regular fa-circle-xmark text-red-500 text-xl"></i>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="flex items-center justify-between py-2 px-1 mb-2 rounded-md hover:bg-blue-100">
-                            <div class="mx-2">
-                                <img class="object-cover w-8 h-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                                    alt="">
-                            </div>
-                            <div class="flex-1 ml-2">
-                                <h1 class="font-bold">Jeff Maccoy</h1>
-                                <span class="block text-xs">Online</span>
-                                <span> 29 February - 10:00 am</span>
-                            </div>
-                            <div class="mr-4 font-bold">
-                                <span class="mx-1 cursor-pointer">
-                                    <i class="fa-regular fa-circle-check text-blue-500 text-xl"></i>
-                                </span>
-                                <span class="mx-1 cursor-pointer">
-                                    <i class="fa-regular fa-circle-xmark text-red-500 text-xl"></i>
-                                </span>
-                            </div>
-                        </li>
+                        @if (count($appointments))
+                            @foreach ($appointments as $appointment)
+                                <li x-data="initAppointment({{ Js::from($appointment) }})"
+                                    class="flex items-center justify-between py-2 px-1 mb-2 rounded-md hover:bg-blue-100">
+                                    <div class="mx-2">
+                                        <img class="object-cover w-8 h-8 rounded-full"
+                                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                                            alt="">
+                                    </div>
+                                    <div class="flex-1 ml-2">
+                                        <div class="flex flex-col mb-1">
+                                            <h1 class="font-bold">{{ $appointment->patient->user->name }}
+                                                {{ $appointment->patient->user->famillyName }}</h1>
+                                            <div class="flex items-center justify-arround">
+                                                <span class="mr-2 text-xs">{{ __('Appointment type') }} :</span>
+                                                <span class="block text-xs text-green-500 font-bold">
+                                                    {{ $appointment->appointment_type }}</span>
+                                            </div>
+                                            <div class="flex">
+                                                <span class="mr-2 text-xs">{{ __('Appointment status') }} :</span>
+                                                <span class="block text-xs text-green-500 font-bold">
+                                                    {{ $appointment->appointment_status }}</span>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="bg-red-200 text-red-600 rounded-full px-2 py-1">{{ $appointment->appointment_date }}</span>
+                                        <span
+                                            class="bg-red-200 text-red-600 rounded-full px-2 py-1">{{ $appointment->appointment_time . ':00' }}</span>
+                                    </div>
+                                    <div class="mr-4 font-bold">
+                                        <span class="mx-1 cursor-pointer">
+                                            <i class="fa-regular fa-circle-check text-blue-500 text-xl"></i>
+                                        </span>
+                                        <span class="mx-1 cursor-pointer">
+                                            <i class="fa-regular fa-circle-xmark text-red-500 text-xl"></i>
+                                        </span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @else
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -297,4 +275,11 @@
         </section>
 
         </x-slot>
+        <script>
+            function initAppointment(appointment){
+                return {
+                     : 
+                };
+            }
+        </script>
 </x-dashboard>

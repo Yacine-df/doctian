@@ -270,23 +270,23 @@
                                         <h1 class="font-bold text-2xl">{{ __('Date') }}: </h1>
                                         <span
                                             class="font-bold text-black text-2xl bg-gray-300 rounded-full px-4 py-1bg-gray-300 "
-                                            x-text="appointment.date"></span>
+                                            x-text="appointment.appointment_date"></span>
                                     </div>
                                     <div class="w-full flex items-center justify-between mt-2">
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('From') }}:</h1>
                                             <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
-                                                x-text="appointment.time +':00'"></span>
+                                                x-text="appointment.appointment_time +':00'"></span>
                                         </div>
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('To') }}:</h1>
                                             <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
-                                                x-text="parseInt(appointment.time)+1 +':00'"></span>
+                                                x-text="parseInt(appointment.appointment_time)+1 +':00'"></span>
                                         </div>
                                         <div class="flex items-center">
                                             <h1 class="mr-2 font-bold">{{ __('Consultation type') }}:</h1>
                                             <span class="font-bold bg-gray-300 rounded-full px-4 py-1"
-                                                x-text="appointment.type"></span>
+                                                x-text="appointment.appointment_type"></span>
                                         </div>
                                     </div>
                                 </div>

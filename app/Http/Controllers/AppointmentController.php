@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AppointmentTaken;
 use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +19,6 @@ class AppointmentController extends Controller
     public function index()
     {
         $appointments = Appointment::with(['patient','doctor'])->where('patient_id','=',auth()->user()->userable_id)->get();
-
         return view("auth.appointment",compact('appointments'));
     }
 
@@ -41,11 +42,12 @@ class AppointmentController extends Controller
     {
         $attributes = $request->validated();
 
-        $attributes['appointment_status'] = false;
+        $attributes['appointment_status'] = 'not confirmed';
 
         $appointment = Appointment::create($attributes);
 
-        return redirect()->back();
+        event(new AppointmentTaken($request->user(), $appointment));
+
     }
 
     /**
@@ -90,6 +92,12 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $appointment = Appointment::find($id);
+        
+        $appointment->delete();
+
+        session()->flash('success','Deleted Successfully');
+
+        return redirect()->back();
     }
 }

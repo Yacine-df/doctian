@@ -11,6 +11,7 @@ class Doctor extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $with = ['user'];
     
     public function scopeFilter($query, array $filters){
 
