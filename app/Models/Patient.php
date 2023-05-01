@@ -9,9 +9,8 @@ class Patient extends Model
 {
     
     use HasFactory;
-
     protected $guarded =[];
-    protected $with = ['user'];
+    protected $with = ['user','medical_record'];
 
     public function user(){
 
@@ -28,5 +27,10 @@ class Patient extends Model
 
         return $this->hasMany(Appointment::class);
 
+    }
+    public function medical_record(){
+
+        return $this->hasOne(medical_record::class);
+        
     }
 }

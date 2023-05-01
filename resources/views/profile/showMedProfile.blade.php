@@ -11,48 +11,49 @@
                 <div class="col-span-10 md:col-span-3 flex flex-col items-center justify-center bg-white rounded p-4">
                     <img class="rounded-full shadow-lg w-32" src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                         alt="Thomas Lean image" />
-                    <h1 class="font-bold mt-2">Temothy Aegri</h1>
-                    <span class="text-gray-500">75090988</span>
-                    <span class="text-gray-500 text-sm">email@email.com</span>
-                    <span class="text-gray-500 text-sm">Bordj Bou Arreridj</span>
+                    <h1 class="font-bold mt-2">{{auth()->user()->name ." ". auth()->user()->famillyName }}</h1>
+                    <span class="text-gray-500">{{auth()->user()->userable->insurance_number}}</span>
+                    <span class="text-gray-500 text-sm">{{auth()->user()->email}}</span>
+                    <span class="text-gray-500 text-sm">{{auth()->user()->wilaya}}</span>
                 </div>
                 <div class="bg-white col-span-10 md:col-span-7 rounded flex items-center">
-                    <form action class="grid w-full grid-cols-12 gap-4 p-4" method="">
+                    <form action="{{route('medicalProfile.update')}}" class="grid w-full grid-cols-12 gap-4 p-4" method="POST">
                         @csrf
-                        @method('put')
+                        @method('PUT')
                         <div class="col-span-4">
                             <x-input-label for="gender" :value="__('Gender')" />
-                            <select name="" id="" class="w-full rounded mt-1 border-none bg-slate-100">
+                            <select value="{{auth()->user()->userable->medicalRecord->gender ?? 'choose'}}" name="gender" id="" class="w-full rounded mt-1 border-none bg-slate-100">
                                 <option value="man">{{ __('Man') }}</option>
                                 <option value="woman">{{ __('Woman') }}</option>
                             </select>
+                            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
                         </div>
                         <div class="col-span-4">
                             <x-input-label for="Birthday" :value="__('Birthday')" />
                             <x-text-input id="birthday" class="block mt-1 w-full border-none bg-slate-100"
-                                type="date" name="birthday" :value="old('birthday')" required autofocus
+                                type="date" name="date_of_birth" :value="auth()->user()->userable->date_of_birth ?? old('date_of_birth')" required autofocus
                                 autocomplete="birthday" />
                             <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
                         </div>
                         <div class="col-span-4">
                             <x-input-label for="phone" :value="__('Phone Number')" />
                             <x-text-input id="phone" class="block mt-1 w-full border-none bg-slate-100"
-                                type="text" name="phone" :value="old('phone')" required autofocus
+                                type="text" name="phone" :value="auth()->user()->phone" required autofocus
                                 autocomplete="phone" />
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
                         <div class="col-span-4">
                             <x-input-label for="height" :value="__('height')" />
                             <x-text-input min="1.00" id="height"
-                                class="block mt-1 w-full border-none bg-slate-100" type="number" name="height"
-                                :value="old('height')" required autofocus autocomplete="height" />
+                                class="block mt-1 w-full border-none bg-slate-100 relative" type="number" name="height"
+                                :value="auth()->user()->userable->medical_record->height ?? old('height')" required autofocus autocomplete="height" />
                             <x-input-error :messages="$errors->get('height')" class="mt-2" />
                         </div>
                         <div class="col-span-4">
                             <x-input-label for="weight" :value="__('weight')" />
                             <x-text-input min="20.00" id="weight"
                                 class="block mt-1 w-full border-none bg-slate-100" type="number" name="weight"
-                                :value="old('weight')" required autofocus autocomplete="weight" />
+                                :value="auth()->user()->userable->medical_record->weight ?? old('weight')" required autofocus autocomplete="weight" />
                             <x-input-error :messages="$errors->get('weight')" class="mt-2" />
                         </div>
                         <div class="col-span-4">
@@ -82,7 +83,7 @@
                             illo incidunt minus? Excepturi saepe nostrum doloremque illum
                         </p>
                         <div class="flex items-center justify-between p-2">
-                            <span class="text-gray-300 text-sm">Dr Chemali </span>
+                            <span class="text-gray-300 text-sm">Dr Chemali</span>
                             <span class="text-gray-300 text-sm">19 Nov 2022</span>
                         </div>
                     </div>

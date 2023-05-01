@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\medical_record;
 use App\Models\Patient;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -44,6 +45,10 @@ class PatientController extends Controller
             'phone' => $request->phone,
             'userable_id' => $patient->id,
             'userable_type' => Patient::class
+        ]);
+
+        medical_record::create([
+            "patient_id" => $patient->id
         ]);
 
         Auth::login($user);
