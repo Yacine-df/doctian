@@ -18,4 +18,10 @@ class medical_record extends Model
 
     }
 
+    public function medicalFiles(){
+
+        return $this->hasMany(medicalFile::class);
+        
+    }
+
 }
