@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('phone');
             $table->unsignedInteger('userable_id');
             $table->string('userable_type');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

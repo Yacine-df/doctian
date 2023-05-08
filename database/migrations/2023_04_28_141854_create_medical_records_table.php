@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
-            $table->string('gender')->nullable();
             $table->double('height')->nullable();
             $table->double('weight')->nullable();
             $table->foreignId('pharmacy_id')->nullable();

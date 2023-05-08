@@ -6,6 +6,7 @@ use App\Http\Middleware\MustBeDoctor;
 use App\Http\Middleware\MustBePatient;
 use App\Http\Middleware\SpecifyUserType;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Http\Middleware\HandleCors;
 
 class Kernel extends HttpKernel
 {
@@ -24,6 +25,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        HandleCors::class,
     ];
 
     /**
@@ -43,7 +45,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

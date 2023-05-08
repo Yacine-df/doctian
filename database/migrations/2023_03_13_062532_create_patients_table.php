@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('insurance_number');
             $table->date('date_of_birth')->nullable();
+            $table->date('gender')->nullable();
             $table->timestamps();
         });
     }
