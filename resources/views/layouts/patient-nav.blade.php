@@ -6,8 +6,8 @@
         <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.index')">
             {{ __('Appointments') }}
         </x-nav-link>
-        <x-nav-link href="/files">
-            {{ __('Files') }}
+        <x-nav-link href="/medicalfiles" :href="route('medicalFiles.index', auth()->user()->userable->id)" :active="request()->routeIs('medicalFiles.index')">
+            {{ __('Medical files') }}
         </x-nav-link>
         </x-slot>
         <x-slot:settingsDropDown>

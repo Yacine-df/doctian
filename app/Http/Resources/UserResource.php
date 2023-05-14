@@ -25,7 +25,7 @@ class UserResource extends JsonResource
             'commune' => $this->user->commune,
             'phone' => $this->user->phone,
             'insurance_number' => $this->insurance_number,
-            'avatar_url' => $this->user->avatar == null ? null : env('APP_URL') . Storage::url($this->user->avatar)
+            'avatar_url' => env('APP_URL') . Storage::url($this->user->avatar)
         ];
     }
 }

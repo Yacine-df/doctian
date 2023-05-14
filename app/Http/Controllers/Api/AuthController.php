@@ -55,28 +55,18 @@ class AuthController extends Controller
         ]);
 
         
-        if($request->avatar){
+        if($request->hasFile('avatar')){
 
-            $base64Image = explode(";base64,", $request->avatar);
+            $file = $request->file('avatar');
 
-            $explodeImage = explode("image/", $base64Image[0]);
+            $name = 'users/'. auth()->id() . $attributes['name'] . '_'. $attributes['famillyName'] . '.' . $file->extension();
 
-            $imageType = $explodeImage[1];
-
-            $image_base64 = base64_decode($base64Image[1]);
-
-            $name = 'users/' . $attributes['name'] . '_'. $attributes['famillyName'] . '.' . $imageType;
-
-            Storage::disk('public')->put($name, $image_base64);
-
-            // $file = base64_decode($request->avatar);
-
-            // $name = 'users/' . $attributes['name'] . '_'. $attributes['famillyName'] . '.' . $file->extension();
-
-            // $file->storePubliclyAs('Public', $name);
+            $file->storePubliclyAs('public', $name);
 
             $attributes['avatar'] = $name;
 
+        }else {
+            $attributes['avatar'] = null;
         }
 
         $patient = Patient::create([
@@ -93,7 +83,7 @@ class AuthController extends Controller
             'phone' => $attributes['phone'],
             'userable_id' => $patient->id,
             'userable_type' => Patient::class,
-            'avatar' => $attributes['avatar'] ?? null
+            'avatar' => $attributes['avatar'] 
         ]);
 
         medical_record::create([

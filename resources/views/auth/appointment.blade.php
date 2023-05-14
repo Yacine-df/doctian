@@ -74,7 +74,7 @@
                                         <td
                                             class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                             <div class="inline-flex items-center gap-x-3">
-                                                <span>{{$key+1}}</span>
+                                                <span>{{$key +1 }}</span>
                                             </div>
                                         </td>
                                         <td

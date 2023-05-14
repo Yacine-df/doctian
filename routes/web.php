@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\medicalFileController;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,9 +60,12 @@ Route::resource('doctors', DoctorController::class)->only([
 Route::middleware('auth')->group(function(){
         //appointment
         Route::resource('appointments', AppointmentController::class);
-        Route::get('/files',function(){
-            return view('auth.files');
-        });
+        //medicalfiles
+        Route::get('/{patient}/medicalfiles',[medicalFileController::class, 'index'])->name('medicalFiles.index');
+        Route::post('/{patient}/medicalfiles',[medicalFileController::class, 'store'])->name('medicalFiles.store');
+        Route::get('/{patient}/medicalfiles/{medicalFile}/show',[medicalFileController::class, 'show'])->name('medicalFiles.show');
+        Route::get('/{patient}/medicalfiles/{medicalFile}/delete',[medicalFileController::class, 'destroy'])->name('medicalFiles.destroy');
+        
 });
 
 require __DIR__.'/auth.php';
