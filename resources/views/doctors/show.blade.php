@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <button class="bg-red-500 text-white px-4 py-2 rounded mt-2">
-                        <a href="#">Video chat</a>
+                        <a href="/videoChat">Video chat</a>
                     </button>
                 </div>
             </div>
@@ -336,6 +336,7 @@
                     </div>
     </section>
     <script>
+        
         let appointmentApp = () => {
             return {
                 open: false,
@@ -367,5 +368,6 @@
 
             }
         }
+        
     </script>
 </x-guest-layout>

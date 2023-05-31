@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Appointment;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('testChannel', function () {
+    return true;
+});
+Broadcast::channel('appointments.{appointmentId}', function (User $user, int $appointmentId) {
+    //return (int)$user->id === (int)Appointment::findOrFail($appointmentId)->patient->user->id || (int)$user->id === (int)Appointment::findOrFail($appointmentId)->doctor->user->id;
+    return true;
 });

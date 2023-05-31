@@ -7,10 +7,11 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/css/formStepper.css',
+                'resources/css/formStepper.css',  
                 'resources/js/formStepper.js',
+                'resources/js/agora.js'
             ],
-            refresh: true,
+            refresh: false,
         }),
     ],
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\agoraController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Patient;
@@ -31,7 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-
+Route::get('/agora/token',[agoraController::class, 'token'])->middleware('auth');
 
 
 Route::get('wilayas  ', function (){

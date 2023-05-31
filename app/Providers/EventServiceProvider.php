@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\AppointmentReminder;
 use App\Events\AppointmentTaken;
 use App\Events\LogedIn;
 use App\Events\UpadateMedicalRecord;
+use App\Listeners\generateVideoChatConf;
 use App\Listeners\LogLogedInAction;
 use App\Listeners\LogRegistrationAction;
 use App\Listeners\SendAppointmentTakenNotification;
@@ -33,6 +35,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpadateMedicalRecord::class => [
             UpdatedMedicalProfileNotificaiton::class
+        ],
+        AppointmentReminder::class => [
+            generateVideoChatConf::class
         ]
     ];
 

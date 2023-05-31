@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Events\AppointmentReminder;
+use App\Models\Appointment;
+
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +19,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $appointments = Appointment::where('appointment_date', now()->format('Y-m-d'))->get();
+            //->where('appointment_time', (int)date('H'))
+            //->where('appointment_status', 'confirmed')
+            Log::info('worked inside schedule');
+            foreach ($appointments as $appointment) {
+                Log::info('worked inside schedule before event');
+               event(new AppointmentReminder($appointment));
+           }
+           
+        })->everyMinute();
+        
     }
 
     /**

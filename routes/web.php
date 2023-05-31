@@ -1,14 +1,14 @@
 <?php
 
+use App\Events\messageNotification;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\medicalFileController;
 use App\Models\Appointment;
-use App\Models\Doctor;
-use App\Models\User;
 use App\Models\log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,12 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     return view('welcome');
 })->name('default');
+Route::get('/event', function () {
+    event(new messageNotification('worked from route'));
+});
+Route::get('/listen', function () {
+    return view('listen');
+});
 //switch languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controllers\LanguagesController@switchLang']);
 //Patient
@@ -58,6 +64,10 @@ Route::resource('doctors', DoctorController::class)->only([
 ]);
 
 Route::middleware('auth')->group(function(){
+        Route::get('/agora', function (){
+            return view('auth.video-chat');
+        });
+        
         //appointment
         Route::resource('appointments', AppointmentController::class);
         //medicalfiles

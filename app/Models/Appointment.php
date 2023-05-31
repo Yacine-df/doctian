@@ -11,6 +11,11 @@ class Appointment extends Model
 
     protected $guarded = [];
 
+    public function getAppointmentTimeAttribute($value)
+    {
+        return (string)$value.':00:00';
+    }
+
     public function doctor()
     {
       return $this->belongsTo(Doctor::class);  
