@@ -30,6 +30,9 @@ Route::get('/event', function () {
 Route::get('/listen', function () {
     return view('listen');
 });
+Route::get('/dicom', function () {
+    return view('dicom');
+});
 //switch languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => '\App\Http\Controllers\LanguagesController@switchLang']);
 //Patient

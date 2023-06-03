@@ -9,7 +9,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/formStepper.css',  
                 'resources/js/formStepper.js',
-                'resources/js/agora.js'
+                'resources/js/agora.js',
+                'resources/js/dicomViewer.js'
             ],
             refresh: false,
         }),

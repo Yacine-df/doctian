@@ -19,7 +19,7 @@ class Patient extends Model
     
     public function doctors(){
 
-        return $this->belongsToMany('Doctor');
+        return $this->belongsToMany(Doctor::class)->withTimestamps();
 
     }
 
