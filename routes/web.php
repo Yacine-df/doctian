@@ -6,6 +6,8 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\medicalFileController;
 use App\Models\Appointment;
 use App\Models\log;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,10 +59,26 @@ Route::get('/d/dashboard/patients', function () {
 })->middleware(['auth', 'verified','doctor'])->name('patients.index');
 //doctor
 Route::get('/d/dashboard/patients/a', function () {
-    dd('test');
-    return view('auth.patients.index');
-})->middleware(['auth', 'verified','doctor']);
+    
+    return view('auth.Medical-record-show');
 
+})->middleware(['auth', 'verified','doctor']);
+//doctor
+Route::get('/d/dashboard/patients/a/precription', function () {
+    
+    return view('auth.patients.prescription');
+
+})->middleware(['auth', 'verified','doctor']);
+//prescription
+Route::get('/prescription', function (Request $request) {
+
+    // return view('prescription');
+    $prescription = $request->all();
+
+    $pdf = PDF::loadView('prescription', $prescription);
+    return $pdf->download('prescription.pdf');
+
+})->name('prescription');
 //doctor
 Route::resource('doctors', DoctorController::class)->only([
     'index','show', 'destroy','create','store'

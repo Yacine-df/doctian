@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <section class="mt-6" x-data="{ shutdown: false }">
+        <section class="mt-6" x-data="{ shutdown: false }" x-cloak>
             <div class="grid md:grid-cols-3 gap-3">
-                <div x-data="{ open: false }" class="flex flex-col items-center pb-10 bg-white relative">
+                <div x-data="{ open: false }"  class="flex flex-col items-center pb-10 bg-white relative">
                     <img class="w-20 h-20 mt-4 rounded-full shadow-lg"
                         src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
                         alt="Bonnie image" />
@@ -24,6 +24,11 @@
                     <div x-show="open" @click.outside="open = false" x-transition
                         class="z-10 absolute origin-top-right right-0 mt-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2" aria-labelledby="dropdownButton">
+                            <li class="block cursor-pointer px-2 py-1 text-sm text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                <a href="/d/dashboard/patients/a/precription">
+                                    {{ __('Create Prescription') }}
+                                </a>
+                            </li>
                             <li @click.prevent="shutdown = true"
                                 class="block cursor-pointer px-2 py-1 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                 {{ __('Delete') }}
@@ -52,6 +57,11 @@
                     <div x-show="open" @click.outside="open = false" x-transition
                         class="z-10 absolute origin-top-right right-0 mt-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2" aria-labelledby="dropdownButton">
+                            <li class="block cursor-pointer px-2 py-1 text-sm text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                <a href="/d/dashboard/patients/a/precription">
+                                    {{ __('Create Prescription') }}
+                                </a>
+                            </li>
                             <li @click.prevent="shutdown = true"
                                 class="block cursor-pointer px-2 py-1 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                 {{ __('Delete') }}
@@ -80,6 +90,11 @@
                     <div x-show="open" @click.outside="open = false" x-transition
                         class="z-10 absolute origin-top-right right-0 mt-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2" aria-labelledby="dropdownButton">
+                            <li class="block cursor-pointer px-2 py-1 text-sm text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                <a href="/d/dashboard/patients/a/precription">
+                                    {{ __('Create Prescription') }}
+                                </a>
+                            </li>
                             <li @click.prevent="shutdown = true"
                                 class="block cursor-pointer px-2 py-1 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                 {{ __('Delete') }}
