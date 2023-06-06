@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
@@ -68,7 +68,7 @@
         <h1>Electronic prescription</h1>
         <hr class="border border-black mt-4 font-normal">
         <div class="note">
-            Please present this document to your pharmacist.To scan the bare code to deliver the medications for you.
+            Please present this document to your pharmacist.For authencity scan and medication delivery.
         </div>
         <hr class="border border-black mt-4">
         <div>
@@ -78,7 +78,7 @@
         </div>
         <div>
             <div>
-                <h2 style="display: inline-block; margin-left:10px">Order Number : <span style="font-weight: 400;">1212121</span></h2>
+                <h2 style="display: inline-block; margin-left:10px">Order Number : <span style="font-weight: 400;">1111</span></h2>
             </div>
         </div>
         <div>
@@ -94,9 +94,9 @@
         <h2 style="text-align: center">Prescription content</h2>
         <div style="margin-bottom: 50px">
             <ul>
-                <li>Doliprane 500 . 2 times per dat for 7 days</li>
-                <li>Juvamine . 3 times per dat for 30 days</li>
-                <li>magnesium . 2 times per dat for 30 days</li>
+                <li>Doliprane 500 . 2 times per day for 7 days</li>
+                <li>Juvamine . 3 times per day for 30 days</li>
+                <li>magnesium . 2 times per day for 30 days</li>
             </ul>
         </div>
         <hr class="border border-black mt-4">

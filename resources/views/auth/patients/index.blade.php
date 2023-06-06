@@ -39,7 +39,7 @@
                     <img class="w-20 h-20 mt-4 rounded-full shadow-lg"
                         src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
                         alt="Bonnie image" />
-                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Yacine Diaf</h5>
+                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Ahmed Ahmed</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Patient</span>
                     <div class="flex mt-4 space-x-3 md:mt-6">
                         <a href="#"
@@ -72,7 +72,7 @@
                     <img class="w-20 h-20 mt-4 rounded-full shadow-lg"
                         src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
                         alt="Bonnie image" />
-                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Yacine Diaf</h5>
+                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Salim Arib</h5>
                     <span class="text-sm text-gray-500 dark:text-gray-400">Patient</span>
                     <div class="flex mt-4 space-x-3 md:mt-6">
                         <a href="#"

@@ -21,7 +21,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             $appointments = Appointment::where('appointment_date', now()->format('Y-m-d'))->get();
-            //->where('appointment_time', (int)date('H'))
             //->where('appointment_status', 'confirmed')
             Log::info('worked inside schedule');
             foreach ($appointments as $appointment) {

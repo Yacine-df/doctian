@@ -239,7 +239,7 @@
                                                         <span>{{ auth()->user()->name ?? '' }}</span>
                                                     </div>
                                                     <div class="flex">
-                                                        <h1 class="mr-2 font-bold">{{ __('famillyName') }}:</h1>
+                                                        <h1 class="mr-2 font-bold">{{ __('familyName') }}:</h1>
                                                         <span>{{ auth()->user()->famillyName ?? '' }}</span>
                                                     </div>
                                                 </div>

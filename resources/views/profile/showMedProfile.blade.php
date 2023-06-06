@@ -110,7 +110,7 @@
                             </div>
                             <div>
                                 <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">February
-                                    2022
+                                    2023
                                 </time>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                     Visiting the doctor for consultation
@@ -124,7 +124,7 @@
                             </div>
                             <div>
                                 <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">February
-                                    2022
+                                    2023
                                 </time>
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                     Visiting the doctor for consultation
@@ -138,10 +138,9 @@
             <aside class="bg-white col-span-12 md:col-span-4 rounded shadow-md p-4">
                 <h1 class="font-bold">{{ __('Files') ." / ".__('Documents') }}</h1>
                 <ul class="mt-4 text-gray-600">
-                    <li class="my-2 w-full rounded shadow py-3 px-2">first</li>
-                    <li class="my-2 w-full rounded shadow py-3 px-2">second</li>
-                    <li class="my-2 w-full rounded shadow py-3 px-2">third</li>
-                    <li class="my-2 w-full rounded shadow py-3 px-2">fourth</li>
+                    <li class="my-2 w-full rounded shadow py-3 px-2">prescription 05-06-2023</li>
+                    <li class="my-2 w-full rounded shadow py-3 px-2">analysis 05-06-2023</li>
+                    <li class="my-2 w-full rounded shadow py-3 px-2">prescription 01-06-2023</li>
                 </ul>
             </aside>
         </div>

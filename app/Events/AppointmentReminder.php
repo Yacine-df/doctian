@@ -21,6 +21,7 @@ class AppointmentReminder
     {
         Log::info('worked inside schedule inside event');
         $this->appointment = $appointment;
+        //$appointment->update(['appointment_status' => 'anounced']);
     }
 
     /**

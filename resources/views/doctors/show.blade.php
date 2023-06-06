@@ -48,7 +48,7 @@
                     <div
                         class="col-span-12 md:col-span-8 text-white bg-blue-900 p-2 rounded shadow h-full flex flex-col items-center ">
                         <h1 class="font-bold text-2xl text-center mt-2">
-                            {{ __('Take an Appointment') }}
+                            {{ __('Make an Appointment') }}
                         </h1>
                         <span class="my-4 pt-4">
                             {{ __('Choose day and date for your appointment') }}
@@ -178,7 +178,7 @@
 
                     <div class="mt-6">
                         <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" rows="5"
-                            placeholder="Quick, thing of something to say!" required></textarea>
+                            placeholder="Quick, think of something to say!" required></textarea>
 
                         @error('body')
                             <span class="text-xs text-red-500">{{ $message }}</span>

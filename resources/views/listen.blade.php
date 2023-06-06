@@ -19,7 +19,7 @@
 
 <body>
     @php
-        $appointmentId = 9
+        $appointmentId = 13
     @endphp
     <h2 class="text-center p-4 font-bold ">Get started with video calling</h2>
     <div class="row min-h-screen bg-black">

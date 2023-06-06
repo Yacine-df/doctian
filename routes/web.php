@@ -70,11 +70,10 @@ Route::get('/d/dashboard/patients/a/precription', function () {
 
 })->middleware(['auth', 'verified','doctor']);
 //prescription
-Route::get('/prescription', function (Request $request) {
+Route::post('/prescription', function (Request $request) {
 
     // return view('prescription');
     $prescription = $request->all();
-
     $pdf = PDF::loadView('prescription', $prescription);
     return $pdf->download('prescription.pdf');
 

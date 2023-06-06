@@ -53,7 +53,7 @@
                                 class="fa-solid text-blue-500 fa-prescription-bottle absolute z-10 mt-3 ml-2 text-base"></i>
                             <select class="rounded mt-1 block w-full relative pl-8" x-model="newMedication.type"
                                 id="">
-                                <option value="">Select a Duration</option>
+                                <option value="">Medication type</option>
                                 <option value="Bottle">Bottle(s)</option>
                                 <option value="Box">Box(es)</option>
                                 <option value="Tube">Tube(s)</option>
@@ -107,12 +107,14 @@
                     </div>
                     <div x-cloak class="w-full flex items-center justify-center">
                         <button x-show="show" class="bg-blue-500 rounded px-4 py-1 text-white">Add</button>
-                        <button @click.prevent="updateMedication(newMedication.index)" x-show="!show" class="bg-orange-500 rounded px-4 py-1 text-white">update</button>
+                        <button @click.prevent="updateMedication(newMedication.index)" x-show="!show"
+                            class="bg-orange-500 rounded px-4 py-1 text-white">update</button>
                     </div>
                 </form>
             </div>
             <div class="bg-white px-4">
-                <p class="bg-gray-300 mx-2 my-4 p-2 text-sm text-center rounded font-bold">{{\Carbon\Carbon::now()->format('Y-m-d')}}</p>
+                <p class="bg-gray-300 mx-2 my-4 p-2 text-sm text-center rounded font-bold">
+                    {{ \Carbon\Carbon::now()->format('Y-m-d') }}</p>
                 <h1 class="mx-2 font-bold">
                     Medications
                     <span x-text="'('+ prescription.medications.length+')'"></span>
@@ -120,7 +122,8 @@
                 <div class="p-4">
                     <ul class="mb-6">
                         <template x-for="(medication, index) in prescription.medications" :key='index'>
-                            <li class="flex items-center justify-between cursor-pointer" @click="editMedication(index)">
+                            <li class="flex items-center justify-between cursor-pointer"
+                                @click="editMedication(index)">
                                 <div>
                                     <h1 class="font-bold" x-text="medication.name"></h1>
                                     <span class="text-xs block"
@@ -128,7 +131,8 @@
                                     <span class="text-xs block"
                                         x-text="medication.frequency + ' for ' + medication.duration "></span>
                                 </div>
-                                <button @click.prevent='deleteMedication(index)' class="bg-red-500 rounded-full text-white">
+                                <button @click.prevent='deleteMedication(index)'
+                                    class="bg-red-500 rounded-full text-white">
                                     <span class=" p-2">x</span>
                                 </button>
                             </li>
@@ -146,8 +150,8 @@
             return {
                 prescription: {
                     _token: '{{ csrf_token() }}',
-                    doctor : '{{ auth()->user()->userable_id }}',
-                    patient : '1',
+                    doctor: '{{ auth()->user()->userable_id }}',
+                    patient: '1',
                     medications: []
                 },
                 newMedication: {
@@ -159,31 +163,48 @@
                     duration: ''
                 },
                 show: true,
-                submit() {    
+                submit() {
                     this.prescription.medications.push(this.newMedication);
                     this.newMedication = {};
                 },
-                deleteMedication(index){
+                deleteMedication(index) {
                     this.prescription.medications.splice(index, 1);
                     this.newMedication = {};
                 },
-                editMedication(index){
+                editMedication(index) {
                     this.newMedication.index = index;
                     this.newMedication = this.prescription.medications[index];
                     this.show = false;
                 },
-                updateMedication(index){
+                updateMedication(index) {
                     this.prescription.medications[index] = this.newMedication;
                     this.newMedication = {};
                     this.show = true;
                 },
-                save(){
-                    fetch('{{route('prescription')}}',{
-                        method: 'GET',
-                        headers: {'Content-Type' : 'application/json'},
-                        body : JSON.stringify(this.prescription)
-                    })
-                    .then(console.log('done'));
+                save() {
+                    fetch('{{ route('prescription') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.prescription)
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                response.blob().then(blob => {
+                                    const url = URL.createObjectURL(blob);
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.download = 'filename.pdf';
+                                    link.click();
+                                    URL.revokeObjectURL(url);
+                                });
+                            } else {
+                                throw new Error('Error: ' + response.status);
+                            }
+                        }).catch(error => {
+                            console.error('Error:', error);
+                        });
                 }
 
             }

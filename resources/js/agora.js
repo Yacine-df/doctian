@@ -15,7 +15,7 @@ let options =
 };
 
 
-Echo.channel('appointments.10')
+Echo.channel('appointments.13')
         .listen('SendVideoChatInformations', (e) => {
             try {  
                 options.appId = e.appID;
@@ -81,7 +81,7 @@ localPlayerContainer.style.padding = "15px 5px 5px 5px";
 localPlayerContainer.style.borderRadius = "0.25rem";
 localPlayerContainer.style.position = "absolute";
 localPlayerContainer.style.left = "8px";
-localPlayerContainer.style.top = "20px";
+localPlayerContainer.style.top = "60px";
 localPlayerContainer.style.zIndex = "40";
 // Set the remote video container size.
 remotePlayerContainer.style.width = "100%";
